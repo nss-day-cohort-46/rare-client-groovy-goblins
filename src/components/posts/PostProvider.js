@@ -6,13 +6,13 @@ export const PostProvider = (props) => {
     const [posts, setPosts] = useState([])
 
     const getPosts = () => {
-        return fetch("localhost:8088/posts")
+        return fetch("http://localhost:8088/posts")
             .then(res => res.json())
             .then(setPosts)
     }
 
     const getPostsByUserId = user_id => {
-        return fetch(`localhost:8088/post?user_id=${user_id}`)
+        return fetch(`http://localhost:8088/posts?user_id=${user_id}`)
             .then(res => res.json())
             .then(setPosts)
     }
@@ -20,6 +20,8 @@ export const PostProvider = (props) => {
     return (
         <PostContext.Provider value={{
             posts, getPosts, getPostsByUserId
-        }}
+        }}>
+            {props.children}
+        </PostContext.Provider>
     )
 }
