@@ -1,6 +1,5 @@
 import React from "react"
 import { Route } from "react-router-dom"
-import { navbar } from "./nav/NavBar"
 
 export const ApplicationViews = () => {
     return <>
@@ -9,7 +8,9 @@ export const ApplicationViews = () => {
             lineHeight: "1.75rem"
         }}>
 
+        <Route path="/posts/user/:user_id(\d+)">
 
+        </Route>
         
 
 
