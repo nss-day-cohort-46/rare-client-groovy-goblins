@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react"
 import { PostContext } from "./PostProvider"
 import { Link, useParams } from "react-router-dom"
+import "./Post.css"
 
 export const PostList = () => {
     const { posts, getPosts, getPostsByUserId } = useContext(PostContext)
@@ -23,9 +24,10 @@ export const PostList = () => {
         <>
             <div>
                 {posts.map(post =>
-                    <div>
-                        <p>{post.title}</p>
-                        <p>{post.first_name}</p>
+                    <div className="post_card">
+                        <p><b>Title: </b>{post.title}</p>
+                        <p><b>Category: </b>{post.category.label}</p>
+                        <p><b>Author: </b>{post.author.first_name} {post.author.last_name}</p>
                     </div>
                 )}
             </div>
