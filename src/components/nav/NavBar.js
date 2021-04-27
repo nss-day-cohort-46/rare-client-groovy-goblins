@@ -12,7 +12,7 @@ export const NavBar = () => {
                 <img className="navbar__logo" src={Logo} />
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/home">Posts</Link>
+                <Link className="navbar__link" to="/">Posts</Link>
             </li>
             <li className="navbar__item">
                 <Link className="navbar__link" to="/">My Posts</Link>
@@ -29,16 +29,17 @@ export const NavBar = () => {
             <li className="navbar__item">
                 <Link className="navbar__link" to="/">User Profiles</Link>
             </li>
-            {
-                (localStorage.getItem("rare_user_id") !== null) ?
+            {/* {
+                (localStorage.getItem("rare_user_id") !== null) ? */}
                     <li className="nav-item">
                         <button className="nav-link fakeLink"
                             onClick={() => {
                                 localStorage.removeItem("rare_user_id")
-                                history.push({ pathname: "/" })
+                                // history.push({ pathname: "/" })
                             }}
-                        >Logout</button>
-                    </li> :
+                        ><Link className="navbar__link" to="/">Logout</Link></button>
+                    </li> 
+                    {/* :
                     <>
                         <li className="nav-item">
                             <Link className="nav-link" to="/login">Login</Link>
@@ -47,6 +48,7 @@ export const NavBar = () => {
                             <Link className="nav-link" to="/register">Register</Link>
                         </li>
                     </>
-            }        </ul>
+            }         */}
+        </ul>
     )
 }
