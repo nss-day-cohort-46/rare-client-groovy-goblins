@@ -12,12 +12,12 @@ export const Rare = () => (
                 return <>
                     <NavBar />
                     <ApplicationViews />
-                </>
+                    </>
             } else {
                 return <>
                 <NavBar />
                 <ApplicationViews />
-            </> 
+                </> 
             }
         }} />
 

@@ -29,8 +29,8 @@ export const NavBar = () => {
             <li className="navbar__item">
                 <Link className="navbar__link" to="/">User Profiles</Link>
             </li>
-            {/* {
-                (localStorage.getItem("rare_user_id") !== null) ? */}
+            {
+                (localStorage.getItem("rare_user_id") !== null) ?
                     <li className="nav-item">
                         <button className="nav-link fakeLink"
                             onClick={() => {
@@ -38,17 +38,13 @@ export const NavBar = () => {
                                 // history.push({ pathname: "/" })
                             }}
                         ><Link className="navbar__link" to="/">Logout</Link></button>
+                    </li> :
+                    <li className="nav-item">
+                    <button className="nav-link fakeLink"
+                    ><Link className="navbar__link" to="/login">Login</Link></button>
                     </li> 
-                    {/* :
-                    <>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/login">Login</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/register">Register</Link>
-                        </li>
-                    </>
-            }         */}
+                    
+            }         
         </ul>
     )
 }
