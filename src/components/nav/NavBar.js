@@ -12,26 +12,27 @@ export const NavBar = () => {
                 <img className="navbar__logo" src={Logo} />
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/">Posts</Link>
+                <Link className="navbar__link" to="/home">Posts</Link>
             </li>
-            {
-                (localStorage.getItem("rare_user_id") !== null) ?
-                    <li className="nav-item">
-                        <button className="nav-link fakeLink"
-                            onClick={() => {
-                                localStorage.removeItem("rare_user_id")
-                                history.push({ pathname: "/" })
-                            }}
-                        >Logout</button>
-                    </li> :
-                    <>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/login">Login</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/register">Register</Link>
-                        </li>
-                    </>
-            }        </ul>
+            <li className="navbar__item">
+                <Link className="navbar__link" to="/home">My Posts</Link>
+            </li>
+            <li className="navbar__item">
+                <Link className="navbar__link" to="/home">New Post</Link>
+            </li>
+            <li className="navbar__item">
+                <Link className="navbar__link" to="/home">Tag MGMT</Link>
+            </li>
+            <li className="navbar__item">
+                <Link className="navbar__link" to="/home">Category MGMT</Link>
+            </li>
+            <li className="navbar__item">
+                <Link className="navbar__link" to="/home">User Profiles</Link>
+            </li>
+            <li className="nav-item">
+                <Link className="navbar__link" to="/logout">Logout</Link>
+            </li> 
+                    
+        </ul>
     )
 }

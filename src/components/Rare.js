@@ -3,7 +3,6 @@ import { Route, Redirect } from "react-router-dom"
 import { ApplicationViews } from "./ApplicationViews"
 import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
-import { Logout } from "./auth/Logout"
 import { Register } from "./auth/Register"
 
 export const Rare = () => (
@@ -12,7 +11,6 @@ export const Rare = () => (
             if (localStorage.getItem("rare_user_id")) {
                 return <>
                     <NavBar />
-                    <Logout />
                     <ApplicationViews />
                 </>
             } else {
@@ -35,6 +33,5 @@ export const Rare = () => (
                 return <Register />
             }
         }} />
-        
     </>
 )
