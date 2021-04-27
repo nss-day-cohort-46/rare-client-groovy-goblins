@@ -25,7 +25,7 @@ export const PostList = () => {
                 {posts.map(post =>
                     <div>
                         <p>{post.title}</p>
-                        <p>{post.title}</p>
+                        <p>{post.first_name}</p>
                     </div>
                 )}
             </div>
