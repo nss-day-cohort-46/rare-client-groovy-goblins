@@ -1,5 +1,6 @@
 import React from "react"
 import { Route } from "react-router-dom"
+import { navbar } from "./nav/NavBar"
 
 export const ApplicationViews = () => {
     return <>

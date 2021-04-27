@@ -15,24 +15,38 @@ export const NavBar = () => {
                 <Link className="navbar__link" to="/home">Posts</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/home">My Posts</Link>
+                <Link className="navbar__link" to="/">My Posts</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/home">New Post</Link>
+                <Link className="navbar__link" to="/">New Post</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/home">Tag MGMT</Link>
+                <Link className="navbar__link" to="/">Tag MGMT</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/home">Category MGMT</Link>
+                <Link className="navbar__link" to="/">Category MGMT</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/home">User Profiles</Link>
+                <Link className="navbar__link" to="/">User Profiles</Link>
             </li>
-            <li className="nav-item">
-                <Link className="navbar__link" to="/logout">Logout</Link>
-            </li> 
-                    
-        </ul>
+            {
+                (localStorage.getItem("rare_user_id") !== null) ?
+                    <li className="nav-item">
+                        <button className="nav-link fakeLink"
+                            onClick={() => {
+                                localStorage.removeItem("rare_user_id")
+                                history.push({ pathname: "/" })
+                            }}
+                        >Logout</button>
+                    </li> :
+                    <>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/login">Login</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/register">Register</Link>
+                        </li>
+                    </>
+            }        </ul>
     )
 }
