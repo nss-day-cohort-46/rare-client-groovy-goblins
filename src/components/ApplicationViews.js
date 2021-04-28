@@ -4,6 +4,8 @@ import { PostProvider } from "./posts/PostProvider"
 import { PostList } from "./posts/PostList"
 import { TagProvider } from "./tags/TagProvider"
 import { TagForm } from "./tags/TagForm"
+import { CategoryList } from "./category/CategoryList"
+import { CategoryProvider } from "./category/CategoryProvider"
 
 export const ApplicationViews = () => {
     return <>
@@ -16,6 +18,11 @@ export const ApplicationViews = () => {
                     <PostList />
                 </Route>
             </PostProvider>
+            <CategoryProvider>
+                <Route path="/categories">
+                    <CategoryList />
+                </Route>
+            </CategoryProvider>
 
             <TagProvider>
                 <Route path="/tags/create">
