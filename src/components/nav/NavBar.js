@@ -25,7 +25,7 @@ export const NavBar = () => {
                 <Link className="navbar__link" to="/">Tag MGMT</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/">Category MGMT</Link>
+                <Link className="navbar__link" to="/categories">Category MGMT</Link>
             </li>
             <li className="navbar__item">
                 <Link className="navbar__link" to="/">User Profiles</Link>
