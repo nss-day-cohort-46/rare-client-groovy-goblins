@@ -4,8 +4,6 @@ import { ApplicationViews } from "./ApplicationViews"
 import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
-import { Category } from "../components/categories/Category";
-import { CategoryProvider } from "../components/categories/CategoryProvider"
 
 export const Rare = () => (
     <>
@@ -38,11 +36,5 @@ export const Rare = () => (
                 return <Register />
             }
         }} />
-
-        <CategoryProvider>
-            <Route path="/categories" render={() => {
-                return <Category />
-            }}/>
-        </CategoryProvider>
     </>
 )

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react"
+import { useHistory } from "react-router"
 import { CategoryContext } from "./CategoryProvider"
 
 export const CategoryForm = () => {
@@ -7,8 +8,11 @@ export const CategoryForm = () => {
   "label": "",
  })
 
+ const history = useHistory()
+
  const handleControlledInputChange = ( event ) => {
   const newformField = { ...formField }
+ 
   newformField[event.target.id] = event.target.value
   setFormField(newformField)
  } // handleControlledInputChange
@@ -18,8 +22,8 @@ export const CategoryForm = () => {
   const newformField = { ...formField }
 
   addCategory(newformField)
+   .then(() => history.push("/categories"))
  } // updateMove
-
 
 
  return (

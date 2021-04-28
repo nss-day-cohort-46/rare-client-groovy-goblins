@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react"
 import { CategoryContext } from "./CategoryProvider"
 import "./Category.css"
+import { Link } from "react-router-dom"
 
 export const CategoryList = () => {
     const { categories, getCategories } = useContext(CategoryContext)
-
 
     useEffect(() => {
             getCategories()
@@ -13,6 +13,9 @@ export const CategoryList = () => {
     
     return (
         <>
+            <Link to={`/categories/create`}>
+                Create Category
+            </Link>
             <div>
                 {sortedCats.map(c =>
                     <div className="category_card" key={c.id}>
