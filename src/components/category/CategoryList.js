@@ -20,6 +20,7 @@ export const CategoryList = () => {
                     </div>
                 )}
             </div>
+            <div>(=ↀωↀ=)✧</div>
         </>
     )
 }
