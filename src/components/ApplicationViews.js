@@ -1,6 +1,7 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { PostProvider } from "./posts/PostProvider"
+import { TagProvider } from "./tags/TagProvider"
 import { PostList } from "./posts/PostList"
 
 export const ApplicationViews = () => {
@@ -15,7 +16,9 @@ export const ApplicationViews = () => {
                 </Route>
             </PostProvider>
 
+            <TagProvider>
 
+            </TagProvider>
 
         </main>
     </>
