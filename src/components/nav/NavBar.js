@@ -5,6 +5,7 @@ import Logo from "./rare.jpeg"
 
 export const NavBar = () => {
     const history = useHistory()
+    const user_id = localStorage.getItem("rare_user_id")
 
     return (
         <ul className="navbar">
@@ -15,7 +16,7 @@ export const NavBar = () => {
                 <Link className="navbar__link" to="/">Posts</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/">My Posts</Link>
+                <Link className="navbar__link" to={`/posts/user/${user_id}`}>My Posts</Link>
             </li>
             <li className="navbar__item">
                 <Link className="navbar__link" to="/">New Post</Link>
@@ -35,18 +36,16 @@ export const NavBar = () => {
                         <button className="nav-link fakeLink"
                             onClick={() => {
                                 localStorage.removeItem("rare_user_id")
-                                history.push({ pathname: "/" })
+                                // history.push({ pathname: "/" })
                             }}
-                        >Logout</button>
+                        ><Link className="navbar__link" to="/">Logout</Link></button>
                     </li> :
-                    <>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/login">Login</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/register">Register</Link>
-                        </li>
-                    </>
-            }        </ul>
+                    <li className="nav-item">
+                    <button className="nav-link fakeLink"
+                    ><Link className="navbar__link" to="/login">Login</Link></button>
+                    </li> 
+                    
+            }         
+        </ul>
     )
 }

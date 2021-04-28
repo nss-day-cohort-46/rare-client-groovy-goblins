@@ -12,9 +12,12 @@ export const Rare = () => (
                 return <>
                     <NavBar />
                     <ApplicationViews />
-                </>
+                    </>
             } else {
-                return <Redirect to="/login" />
+                return <>
+                <NavBar />
+                <ApplicationViews />
+                </> 
             }
         }} />
 
