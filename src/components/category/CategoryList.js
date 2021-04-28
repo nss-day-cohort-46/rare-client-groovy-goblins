@@ -10,13 +10,21 @@ export const CategoryList = () => {
             getCategories()
     }, [])
     const sortedCats = categories.sort((a, b) => a.label > b.label ? 1 : -1)
-    
+
+    // filter out "deleted" categories
+    const filteredCats = sortedCats.filter(cat => cat.deleted == 0)
+
+    const handleClickDelete = event => {
+        console.log(`clicked ${event.target.id}`)
+    }
+
     return (
         <>
             <div>
-                {sortedCats.map(c =>
+                {filteredCats.map(c =>
                     <div className="category_card" key={c.id}>
                         <p><b>label: </b>{c.label}</p>
+                        <button id={c.id} onClick={handleClickDelete}>Delete</button>
                     </div>
                 )}
             </div>
