@@ -5,6 +5,7 @@ import Logo from "./rare.jpeg"
 
 export const NavBar = () => {
     const history = useHistory()
+    const user_id = localStorage.getItem("rare_user_id")
 
     return (
         <ul className="navbar">
@@ -15,7 +16,7 @@ export const NavBar = () => {
                 <Link className="navbar__link" to="/">Posts</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/">My Posts</Link>
+                <Link className="navbar__link" to={`/posts/user/${user_id}`}>My Posts</Link>
             </li>
             <li className="navbar__item">
                 <Link className="navbar__link" to="/">New Post</Link>
