@@ -74,7 +74,7 @@ export const PostForm = () => {
         <fieldset>
           <div className="form-group">
               <label htmlFor="image_url">Image URL (optional):</label>
-              <input type="text" id="image_url" onChange={handleControlledInputChange} required autoFocus 
+              <input type="text" id="image_url" onChange={handleControlledInputChange} autoFocus 
               className="form-control" 
               placeholder="Header Image URL" 
               value={post.image_url}/>
