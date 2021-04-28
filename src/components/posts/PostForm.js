@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState } from "react"
 import { PostContext } from "./PostProvider"
 import "./Post.css"
 import { useHistory } from 'react-router-dom';
+import { CategoryContext } from "../category/CategoryProvider";
 
 export const PostForm = () => {
     const { addPost } = useContext(PostContext)
-    const session_user_id = localStorage.getItem(parseInt("rare_user_id"))
+    const { categories, getCategories } = useContext(CategoryContext)
+    const session_user_id = parseInt(localStorage.getItem("rare_user_id"))
 
-    //for edit, hold on to state of post in this view
+
     const [post, setPost] = useState({
       user_id: session_user_id,
       category_id: 0,  
@@ -18,8 +20,7 @@ export const PostForm = () => {
 
 	  const history = useHistory();
 
-    //when field changes, update state. This causes a re-render and updates the view.
-    //Controlled component
+    
     const handleControlledInputChange = (event) => {
       //When changing a state object or array,
       //always create a copy make changes, and then set state.
@@ -32,57 +33,58 @@ export const PostForm = () => {
     }
 
     const handleSavePost = () => {
-        // Add a conditional for the category_id to make sure the user picks one
+        if (parseInt(post.category_id) === 0) {
+            window.alert("Please select a category")
+        } else {
           addPost({
               user_id: post.user_id,
-              category_id: post.category_id,
+              category_id: parseInt(post.category_id),
               title: post.title,
-              image_url: parseInt(post.image_url),
-              content: parseInt(post.content)
+              image_url: post.image_url,
+              content: post.content
           })
-          .then(() => history.push("/posts")) //This link string might be different for posts. Check it
-    }
+          .then(() => history.push("/posts")) //This link string might be different for posts. Hasn't been coded yet.
+    }}
 
-    // useEffect(() => {
-    //   getCustomers()
-    //   .then(getLocations)
-    // }, [])
+    useEffect(() => {
+      getCategories()
+    }, [])
 
     return (
       <form className="postForm">
-        <h2 className="postForm__title">Add post</h2>
+        <h2 className="postForm__title">Make a Post</h2>
         <fieldset>
           <div className="form-group">
-            <label htmlFor="postTitle">Post Title: </label>
+            <label htmlFor="postTitle">Title:</label>
             <input type="text" id="title" required autoFocus className="form-control"
-            placeholder="post title"
+            placeholder="Post Title"
             onChange={handleControlledInputChange}
             value={post.title}/>
           </div>
         </fieldset>
         <fieldset>
           <div className="form-group">
-              <label htmlFor="content">post content:</label>
+              <label htmlFor="content">Content:</label>
               <input type="text" id="content" onChange={handleControlledInputChange} required autoFocus 
               className="form-control" 
-              placeholder="post content" 
+              placeholder="Post Content" 
               value={post.content}/>
           </div>
         </fieldset>
         <fieldset>
           <div className="form-group">
-              <label htmlFor="image_url"></label>
+              <label htmlFor="image_url">Image URL (optional):</label>
               <input type="text" id="image_url" onChange={handleControlledInputChange} required autoFocus 
               className="form-control" 
-              placeholder="header image url" 
+              placeholder="Header Image URL" 
               value={post.image_url}/>
           </div>
         </fieldset>
         <fieldset>
           <div className="form-group">
-            <label htmlFor="category">Assign to category: </label>
-            <select value={animal.category_id} id="category_id" className="form-control" onChange={handleControlledInputChange}>
-              <option value="0">Select a category</option>
+            <label htmlFor="category">Category:</label>
+            <select value={post.category_id} id="category_id" className="form-control" onChange={handleControlledInputChange}>
+              <option value="0">Select a Category</option>
               {categories.map(c => (
                 <option key={c.id} value={c.id}>
                   {c.label}
@@ -93,9 +95,9 @@ export const PostForm = () => {
         </fieldset>
         <button className="btn btn-primary"
           onClick={event => {
-            event.preventDefault() // Prevent browser from submitting the form and refreshing the page
+            event.preventDefault()
             handleSavePost()
-          }}>Add Post</button>
+          }}>Make Post</button>
       </form>
     )
 }
