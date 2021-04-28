@@ -11,12 +11,17 @@ export const CategoryProvider = (props) => {
             .then(setCategories)
     }
 
-    const 
+    const deleteCategory = id => {
+        return fetch(`http://localhost:8088/categories/${id}`, {
+            method: "DELETE"
+        })
+            .then(getCategories)
+    }
 
 
     return (
         <CategoryContext.Provider value={{
-            categories, getCategories
+            categories, getCategories, deleteCategory
         }}>
             {props.children}
         </CategoryContext.Provider>
