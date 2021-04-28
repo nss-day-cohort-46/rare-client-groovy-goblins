@@ -22,8 +22,12 @@ export const PostList = () => {
     }, [])
 
     const handleDelete = ( id ) => {
-        deletePost(id)
-            .then(() => history.push(`/posts/user/${user_id}`))
+        
+        if(window.confirm("Confirm Deletion")) {
+            deletePost(id)
+                .then(() => history.push(`/posts/user/${user_id}`))
+
+        } 
     }
 
 
