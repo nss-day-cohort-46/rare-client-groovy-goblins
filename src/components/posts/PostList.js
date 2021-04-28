@@ -5,6 +5,7 @@ import "./Post.css"
 
 export const PostList = () => {
     const { posts, getPosts, getPostsByUserId } = useContext(PostContext)
+    console.log('posts: ', posts);
 
     const { user_id } = useParams()
 
@@ -24,6 +25,7 @@ export const PostList = () => {
                         <p><b>Title: </b>{post.title}</p>
                         <p><b>Category: </b>{post.category.label}</p>
                         <p><b>Author: </b>{post.author.first_name} {post.author.last_name}</p>
+                        <button>edit</button>
                     </div>
                 )}
             </div>

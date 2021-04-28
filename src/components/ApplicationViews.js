@@ -15,6 +15,9 @@ export const ApplicationViews = () => {
                 <Route path="/posts/user/:user_id(\d+)">
                     <PostList />
                 </Route>
+                <Route path="/posts/user/:user_id(\d+)/edit/:postId(\d+)">
+                    <PostList />
+                </Route>
             </PostProvider>
             <CategoryProvider>
                 <Route path="/categories">
