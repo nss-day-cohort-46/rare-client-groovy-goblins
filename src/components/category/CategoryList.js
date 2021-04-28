@@ -5,10 +5,10 @@ import "./Category.css"
 export const CategoryList = () => {
     const { categories, getCategories } = useContext(CategoryContext)
     const deleteWarning = useRef()
-    const [deleteId, setDeleteId] = useState(0)
+    const [deleteId, setDeleteId] = useState()
 
     useEffect(() => {
-            getCategories()
+        getCategories()
     }, [])
     const sortedCats = categories.sort((a, b) => a.label > b.label ? 1 : -1)
 
@@ -25,19 +25,20 @@ export const CategoryList = () => {
         setDeleteId(0)
         deleteWarning.current.close()
     }
-    
+
     const handleClickDelete = () => {
         console.log(deleteId)
-        deleteWarning.current.close()
+        handleCloseModal()
     }
+
     return (
         <>
             <div>
-            <dialog className="dialog dialog--auth" ref={deleteWarning}>
-                <div>Are you sure you want to delete this category?</div>
-                <button className="button--close" onClick={handleCloseModal}>Cancel</button>
-                <button className="button--close" onClick={handleClickDelete}>Confirm</button>
-            </dialog>
+                <dialog className="dialog dialog--auth" ref={deleteWarning}>
+                    <div>Are you sure you want to delete the category?</div>
+                    <button className="button--close" onClick={handleCloseModal}>Cancel</button>
+                    <button className="button--close" onClick={handleClickDelete}>Confirm</button>
+                </dialog>
                 {filteredCats.map(c =>
                     <div className="category_card" key={c.id}>
                         <p><b>label: </b>{c.label}</p>
