@@ -22,6 +22,7 @@ export const Login = () => {
                 username: email.current.value,
                 password: password.current.value
             })
+            
         })
             .then(res => res.json())
             .then(res => {
