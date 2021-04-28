@@ -10,6 +10,9 @@ export const ApplicationViews = () => {
             lineHeight: "1.75rem"
         }}>
             <PostProvider>
+                <Route path="/posts">
+                    <PostList />
+                </Route>
                 <Route path="/posts/user/:user_id(\d+)">
                     <PostList />
                 </Route>
