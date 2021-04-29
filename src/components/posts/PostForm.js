@@ -11,7 +11,6 @@ export const PostForm = () => {
 
 
     const [post, setPost] = useState({
-      
       user_id: session_user_id,
       category_id: 0,  
       title: "",
