@@ -21,7 +21,7 @@ export const CategoryList = () => {
     const handleDeleteWarning = event => {
         deleteWarning.current.showModal()
         
-        const category = categories.find(cat => cat.id = parseInt(event.target.id))
+        const category = categories.find(cat => cat.id === parseInt(event.target.id))
         setDeleteCat(category)
     }
 
@@ -49,7 +49,8 @@ export const CategoryList = () => {
                 {filteredCats.map(c =>
                     <div className="category_card" key={c.id}>
                         <p><b>label: </b>{c.label}</p>
-                        <button key={`button--${c.id}`} id={c.id} onClick={handleDeleteWarning}>Delete</button>
+                        {console.log(c.id)}
+                        <button id={c.id} onClick={handleDeleteWarning}>Delete</button>
                     </div>
                 )}
             </div>
