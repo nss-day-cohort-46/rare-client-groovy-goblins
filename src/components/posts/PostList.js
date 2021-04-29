@@ -1,33 +1,28 @@
 import React, { useContext, useEffect, useState } from "react"
 import { PostContext } from "./PostProvider"
-import { Link, useHistory, useParams } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import "./Post.css"
 
 export const PostList = () => {
     const { posts, getPosts, getPostsByUserId, deletePost } = useContext(PostContext)
 
     const { user_id } = useParams()
-    // Show loading while all the post data has not loaded yet.
-    const [ isLoaded, setIsLoaded ] = useState(false)
     const history = useHistory()
 
     useEffect(() => {
         if (user_id > 0) {
             getPostsByUserId(user_id)
-                .then(() => setIsLoaded(true))
         } else {
             getPosts()
-                .then(() => setIsLoaded(true))
         }
     }, [])
 
     const handleDelete = ( id ) => {
         
         if(window.confirm("Confirm Deletion")) {
-            deletePost(id)
+            deletePost(id, user_id)
                 .then(() => history.push(`/posts/user/${user_id}`))
-
-        } 
+        }
     }
 
 

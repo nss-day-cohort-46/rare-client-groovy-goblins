@@ -17,11 +17,11 @@ export const PostProvider = (props) => {
             .then(setPosts)
     }
 
-    const deletePost = ( id ) => {
+    const deletePost = ( id, user_id ) => {
         return fetch(`http://localhost:8088/posts/${id}`, {
             method: "DELETE"
         })
-            .then(getPosts)
+            .then(getPostsByUserId(user_id))
     }
 
     return (
