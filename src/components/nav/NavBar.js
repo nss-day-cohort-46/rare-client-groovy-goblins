@@ -13,7 +13,7 @@ export const NavBar = () => {
                 <img className="navbar__logo" src={Logo} />
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/">Posts</Link>
+                <Link className="navbar__link" to="/posts">Posts</Link>
             </li>
             <li className="navbar__item">
                 <Link className="navbar__link" to="/categories">Categories</Link>
@@ -22,7 +22,7 @@ export const NavBar = () => {
                 <Link className="navbar__link" to={`/posts/user/${user_id}`}>My Posts</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/">New Post</Link>
+                <Link className="navbar__link" to="/posting">New Post</Link>
             </li>
             <li className="navbar__item">
                 <Link className="navbar__link" to="/">Tag MGMT</Link>
