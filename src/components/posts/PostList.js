@@ -9,9 +9,12 @@ export const PostList = () => {
     const { user_id } = useParams()
     const history = useHistory()
 
+    const [isLoading, setIsLoading] = useState(true)
+
     useEffect(() => {
         if (user_id > 0) {
             getPostsByUserId(user_id)
+                .then(() => setIsLoading(false))
         } else {
             getPosts()
         }
@@ -25,14 +28,18 @@ export const PostList = () => {
         }
     }
 
+    // So we wouldn't have to worry about missing ?'s in the return component
+    // and avoid the "cannot find label of undefined" error.
+    if(isLoading) return (<div>Loading</div>)
 
     return (<>
+
         <div>
             {posts.map(post =>
                 <div className="post_card" key={post.id}>
-                    <p><b>Title: </b>{post?.title}</p>
-                    <p><b>Category: </b>{post.category?.label}</p>
-                    <p><b>Author: </b>{post.author?.first_name} {post.author?.last_name}</p>
+                    <p><b>Title: </b>{post.title}</p>
+                    <p><b>Category: </b>{post.category.label}</p>
+                    <p><b>Author: </b>{post.author.first_name} {post.author.last_name}</p>
                     <button type="button" id="deletePost" onClick={(e) => {
                         e.preventDefault()
                         handleDelete(post.id)
