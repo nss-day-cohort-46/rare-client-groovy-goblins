@@ -8,7 +8,11 @@ export const PostProvider = (props) => {
     const getPosts = () => {
         return fetch("http://localhost:8088/posts")
             .then(res => res.json())
-            .then(setPosts)
+            .then(data => {
+                setPosts(data)
+                return data
+                
+            })
     }
 
     const getPostsByUserId = user_id => {

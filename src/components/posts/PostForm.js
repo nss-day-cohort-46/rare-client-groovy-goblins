@@ -63,11 +63,14 @@ const urlId = postId.postId
 console.log('urlId: ', urlId);
 useEffect(() => {
   getCategories()
-  
+  .then(getPosts)
+  .then(posts => { 
+    const postbyId = posts.find(p => p.id === parseInt(urlId))
+    setPost(postbyId)
+  })
+   
 
 }, [])
-// const postbyId = posts.find(p => p.id === parseInt(urlId))
-//   console.log('postbyId: ', postbyId);
 // useEffect(() => {
 //   // debugger
 
@@ -91,7 +94,7 @@ useEffect(() => {
             <input type="text" id="title" required autoFocus className="form-control"
             placeholder="Post Title"
             onChange={handleControlledInputChange}
-            value={post?.title}/>
+            value={post.title}/>
           </div>
         </fieldset>
         <fieldset>
