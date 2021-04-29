@@ -21,7 +21,7 @@ export const PostList = () => {
             <div>
                 {posts.map(post =>
                     <div className="post_card" key={post.id}>
-                        <p><b>Title: </b>{post.title}</p>
+                        <p><b>Title: </b><Link to={`/posts/detail/${post.id}`}> {post.title}</Link></p>
                         <p><b>Category: </b>{post.category.label}</p>
                         <p><b>Author: </b>{post.author.first_name} {post.author.last_name}</p>
                     </div>

@@ -21,9 +21,9 @@ export const PostDetail = () => {
   return (
     <section className="post">
       <h3 className="post__title">{post.title}</h3>
-      <div className="post__image">{post.image_url}</div>
+      <img className="post__image" href={post.image_url} alt=""/>
       <div className="post__content">{post.content}</div>
-      <div className="post__created_on">{post.created_on}</div>
+      <div className="post__created_on">{post.publication_date}</div>
       <div className="post__author__first_name">{post.user?.first_name} {post.user?.last_name}</div>
     </section>
   )
