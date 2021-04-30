@@ -5,7 +5,7 @@ import "./Post.css"
 
 export const PostList = () => {
     const { posts, getPosts, getPostsByUserId } = useContext(PostContext)
-
+    const session_user_id = parseInt(localStorage.getItem("rare_user_id"))
     const { user_id } = useParams()
 
     useEffect(() => {
@@ -25,8 +25,8 @@ export const PostList = () => {
                         <p><b>Title: </b>{post.title}</p>
                         <p><b>Category: </b>{post.category.label}</p>
                         <p><b>Author: </b>{post.author.first_name} {post.author.last_name}</p>
-                        <button ><Link to={{ pathname: `/posts/user/edit/${post.id}`
-                        }}>edit</Link></button>
+                        {session_user_id === post.user_id ? <button ><Link to={{ pathname: `/posts/user/edit/${post.id}`
+                        }}>edit</Link></button> : "" }
                     </div>
                 )}
             </div>
