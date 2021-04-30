@@ -36,7 +36,7 @@ export const PostForm = () => {
     }
 
     const handleSavePost = () => {
-     if (parseInt(post.category_id) === 0) {
+    if (parseInt(post.category_id) === 0) {
       window.alert("Please select a category")
     } if (postId.postId > 0) {
           editPost({
@@ -58,32 +58,16 @@ export const PostForm = () => {
           .then(() => history.push("/posts")) //This link string might be different for posts. Hasn't been coded yet.
     }   
   }
-// debugger
 const urlId = postId.postId
-console.log('urlId: ', urlId);
 useEffect(() => {
   getCategories()
-  .then(getPosts)
+  if (urlId) {
+  getPosts()
   .then(posts => { 
     const postbyId = posts.find(p => p.id === parseInt(urlId))
     setPost(postbyId)
-  })
-   
-
+  })}
 }, [])
-// useEffect(() => {
-//   // debugger
-
-//   if (postId !== null) {
-  
-  
-// }
-// }, [posts])
-    
-  
-    
-    console.log('post: ', post);
-    
     
     return (
       <form className="postForm">
