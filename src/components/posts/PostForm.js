@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from "react"
 import { PostContext } from "./PostProvider"
 import "./Post.css"
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { CategoryContext } from "../category/CategoryProvider";
 
 export const PostForm = () => {
-    const { addPost } = useContext(PostContext)
+    const { addPost, editPost, getPosts, posts } = useContext(PostContext)
     const { categories, getCategories } = useContext(CategoryContext)
     const session_user_id = parseInt(localStorage.getItem("rare_user_id"))
-
-
+    
+    
     const [post, setPost] = useState({
       user_id: session_user_id,
       category_id: 0,  
@@ -17,8 +17,11 @@ export const PostForm = () => {
       image_url: "",
       content: ""
     })
+    console.log('posts: ', posts);
 
 	  const history = useHistory();
+    const postId = useParams();
+    const user_id = localStorage.getItem("rare_user_id")
 
     
     const handleControlledInputChange = (event) => {
@@ -33,8 +36,17 @@ export const PostForm = () => {
     }
 
     const handleSavePost = () => {
-        if (parseInt(post.category_id) === 0) {
-            window.alert("Please select a category")
+    if (parseInt(post.category_id) === 0) {
+      window.alert("Please select a category")
+    } if (postId.postId > 0) {
+          editPost({
+            id: postId.postId,
+            title: post.title,
+            content: post.content,
+            category_id: parseInt(post.category_id),
+            image_url: post.image_url
+          })
+    .then(() => history.push(`/posts/user/${user_id}`)) //This link string might be different for posts. Hasn't been coded yet.
         } else {
           addPost({
               user_id: post.user_id,
@@ -44,15 +56,22 @@ export const PostForm = () => {
               content: post.content
           })
           .then(() => history.push("/posts")) //This link string might be different for posts. Hasn't been coded yet.
-    }}
-
-    useEffect(() => {
-      getCategories()
-    }, [])
-
+    }   
+  }
+const urlId = postId.postId
+useEffect(() => {
+  getCategories()
+  if (urlId) {
+  getPosts()
+  .then(posts => { 
+    const postbyId = posts.find(p => p.id === parseInt(urlId))
+    setPost(postbyId)
+  })}
+}, [])
+    
     return (
       <form className="postForm">
-        <h2 className="postForm__title">Make a Post</h2>
+        <h2 className="postForm__title">{postId.postId > 0 ? "Edit a post" : "Make a post"}</h2>
         <fieldset>
           <div className="form-group">
             <label htmlFor="postTitle">Title:</label>
@@ -97,7 +116,12 @@ export const PostForm = () => {
           onClick={event => {
             event.preventDefault()
             handleSavePost()
-          }}>Make Post</button>
+          }}>{postId.postId > 0 ? "Edit post" : "Make post"}</button>
+        {postId.postId > 0 ? <button className="btn btn-primary"
+          onClick={event => {
+            event.preventDefault()
+            history.push(`/posts/user/${user_id}`)}}
+          >Cancel</button> : "" }
       </form>
     )
 }
