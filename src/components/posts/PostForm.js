@@ -43,7 +43,7 @@ export const PostForm = () => {
               image_url: post.image_url,
               content: post.content
           })
-          .then(() => history.push("/posts")) //This link string might be different for posts. Hasn't been coded yet.
+          .then(() => history.push("/posts"))
     }}
 
     useEffect(() => {
