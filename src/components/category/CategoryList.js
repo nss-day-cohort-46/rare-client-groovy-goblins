@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
 import { CategoryContext } from "./CategoryProvider"
 import "./Category.css"
+import { Link } from "react-router-dom"
 
 export const CategoryList = () => {
     const { categories, getCategories, deleteCategory } = useContext(CategoryContext)
@@ -40,6 +41,9 @@ export const CategoryList = () => {
 
     return (
         <>
+            <Link to={`/categories/create`}>
+                Create Category
+            </Link>
             <div>
                 <dialog className="dialog dialog--auth" ref={deleteWarning}>
                     <div>Are you sure you want to delete the category "{deleteCat.label}"?</div>
