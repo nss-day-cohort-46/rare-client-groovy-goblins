@@ -1,5 +1,5 @@
 import React, { useRef } from "react"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import "./Auth.css"
 
 export const Register = (props) => {
@@ -10,9 +10,11 @@ export const Register = (props) => {
     const password = useRef()
     const verifyPassword = useRef()
     const passwordDialog = useRef()
-
+    const history = useHistory()
+    
     const handleRegister = (e) => {
         e.preventDefault()
+        
 
         if (password.current.value === verifyPassword.current.value) {
             const newUser = {
@@ -38,6 +40,7 @@ export const Register = (props) => {
                         props.history.push("/")
                     }
                 })
+                .then(history.push("/login"))
         } else {
             passwordDialog.current.showModal()
         }
@@ -76,9 +79,7 @@ export const Register = (props) => {
                 <fieldset style={{
                     textAlign: "center"
                 }}>
-                    <Link to="/login">
                     <button className="btn btn-1 btn-sep icon-send" type="submit">Register</button>
-                    </Link>
                 </fieldset>
             </form>
             <section className="link--register">

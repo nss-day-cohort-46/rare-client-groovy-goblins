@@ -7,6 +7,7 @@ import { TagForm } from "./tags/TagForm"
 import { CategoryList } from "./category/CategoryList"
 import { CategoryProvider } from "./category/CategoryProvider"
 import { PostForm } from "./posts/PostForm"
+import { PostDetail } from "./posts/PostDetail"
 
 export const ApplicationViews = () => {
     return <>
@@ -35,6 +36,16 @@ export const ApplicationViews = () => {
                     </Route>
                 </CategoryProvider>
                 </PostProvider>
+                <PostProvider>
+                    <Route exact path="/posts/detail/:postId(\d+)">
+                        <PostDetail />
+                    </Route>
+                </PostProvider>
+                <TagProvider>
+                    <Route path="/tags/create">
+                        <TagForm />
+                    </Route>
+                </TagProvider>
                 <TagProvider>
                     <Route path="/tags/create">
                         <TagForm />
