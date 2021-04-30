@@ -7,40 +7,50 @@ import { TagForm } from "./tags/TagForm"
 import { CategoryList } from "./category/CategoryList"
 import { CategoryProvider } from "./category/CategoryProvider"
 import { PostForm } from "./posts/PostForm"
+import { PostDetail } from "./posts/PostDetail"
 
 export const ApplicationViews = () => {
     return <>
-        <main style={{
-            margin: "5rem 2rem",
-            lineHeight: "1.75rem"
-        }}>
-            <PostProvider>
-                <Route exact path="/posts">
-                    <PostList />
-                </Route>
-                <Route exact path="/posts/user/:user_id(\d+)">
-                    <PostList />
-                </Route>
-            </PostProvider>
-            <CategoryProvider>
-                <Route path="/categories">
-                    <CategoryList />
-                </Route>
-            </CategoryProvider>
-            <PostProvider>
+            <main style={{
+                margin: "5rem 2rem",
+                lineHeight: "1.75rem"
+            }}>
+                <PostProvider>
+                    <Route exact path="/posts">
+                        <PostList />
+                    </Route>
+                    <Route exact path="/posts/user/:user_id(\d+)">
+                        <PostList />
+                    </Route>
+                </PostProvider>
+                <PostProvider>
                 <CategoryProvider>
-                    <Route path="/posting">
+                    <Route path="/categories">
+                        <CategoryList />
+                    </Route>
+                    <Route exact path="/posting">
+                        <PostForm />
+                    </Route>
+                    <Route exact path="/posts/user/edit/:postId(\d+)">
                         <PostForm />
                     </Route>
                 </CategoryProvider>
-            </PostProvider>
-
-            <TagProvider>
-                <Route path="/tags/create">
-                    <TagForm />
-                </Route>
-            </TagProvider>
-
-        </main>
-    </>
+                </PostProvider>
+                <PostProvider>
+                    <Route exact path="/posts/detail/:postId(\d+)">
+                        <PostDetail />
+                    </Route>
+                </PostProvider>
+                <TagProvider>
+                    <Route path="/tags/create">
+                        <TagForm />
+                    </Route>
+                </TagProvider>
+                <TagProvider>
+                    <Route path="/tags/create">
+                        <TagForm />
+                    </Route>
+                </TagProvider>
+            </main>
+        </>
 }

@@ -1,19 +1,18 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import { PostContext } from "./PostProvider"
-import { useHistory, useParams } from "react-router-dom"
+import { Link, useHistory, useParams } from "react-router-dom"
 import "./Post.css"
 
 export const PostList = () => {
     const { posts, getPosts, getPostsByUserId, deletePost } = useContext(PostContext)
 
-    const logged_in_user = localStorage.getItem("rare_user_id")
+    const session_user_id = parseInt(localStorage.getItem("rare_user_id"))
+
     const { user_id } = useParams()
     const history = useHistory()
 
     const [isLoading, setIsLoading] = useState(true)
 
-    console.log(`loged in user ${logged_in_user}`)
-    console.log(`user_id ${user_id}`)
 
     useEffect(() => {
         if (user_id > 0) {
@@ -42,12 +41,21 @@ export const PostList = () => {
         <div>
             {posts.map(post =>
                 <div className="post_card" key={post.id}>
-                    <p><b>Title: </b>{post.title}</p>
+                    <p><b>Title: </b><Link to={`/posts/detail/${post.id}`}> {post.title}</Link></p>
+
                     <p><b>Category: </b>{post.category.label}</p>
                     <p><b>Author: </b>{post.author.first_name} {post.author.last_name}</p>
 
                     {
-                        user_id === logged_in_user
+                        session_user_id === post.user_id 
+                        ? <button >
+                            <Link to={{ pathname: `/posts/user/edit/${post.id}`
+                            }}>edit</Link>
+                        </button> 
+                        : ""
+                    }
+                    {
+                        session_user_id === post.user_id
                         ?
                         <button type="button" id="deletePost" onClick={(e) => {
                             e.preventDefault()
@@ -60,3 +68,6 @@ export const PostList = () => {
         </div>
     </>)
 }
+
+
+
