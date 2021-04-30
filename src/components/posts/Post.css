@@ -2,3 +2,8 @@
     border: 1px solid #000000;
     margin: .1em 0 .1em 0  
 }
+
+img.post__image {
+    width: 400px;
+    height: auto;
+}
