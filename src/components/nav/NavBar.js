@@ -45,7 +45,7 @@ export const NavBar = () => {
                     </li> :
                     <li className="nav-item">
                     <button className="nav-link fakeLink"
-                    ><Link className="navbar__link" to="/login">Login</Link></button>
+                    ><Link className="navbar__link" to="/login">Login/Register</Link></button>
                     </li> 
                     
             }         
