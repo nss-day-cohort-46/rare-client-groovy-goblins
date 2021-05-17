@@ -6,7 +6,7 @@ export const PostProvider = (props) => {
     const [posts, setPosts] = useState([])
 
     const getPosts = () => {
-        return fetch("http://localhost:8088/posts")
+        return fetch("http://localhost:8000/posts")
             .then(res => res.json())
             .then(data => {
                 setPosts(data)
@@ -16,20 +16,20 @@ export const PostProvider = (props) => {
     }
 
     const getPostsByUserId = user_id => {
-        return fetch(`http://localhost:8088/posts?user_id=${user_id}`)
+        return fetch(`http://localhost:8000/posts?user_id=${user_id}`)
             .then(res => res.json())
             .then(setPosts)
     }
 
     const deletePost = ( id, user_id ) => {
-        return fetch(`http://localhost:8088/posts/${id}`, {
+        return fetch(`http://localhost:8000/posts/${id}`, {
             method: "DELETE"
         })
             .then(() => getPostsByUserId(user_id))
     }
 
     const editPost = post => {
-        return fetch(`http://localhost:8088/posts/${post.id}`, {
+        return fetch(`http://localhost:8000/posts/${post.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -40,7 +40,7 @@ export const PostProvider = (props) => {
     }
     
     const addPost = postObj => {
-        return fetch("http://localhost:8088/posts", {
+        return fetch("http://localhost:8000/posts", {
             method: "POST",
                 headers: {
                 "Content-Type": "application/json"
@@ -52,7 +52,7 @@ export const PostProvider = (props) => {
     }
 
     const getPostById = id => {
-        return fetch(`http://localhost:8088/posts/${id}`)
+        return fetch(`http://localhost:8000/posts/${id}`)
             .then(res => res.json())
     }
 

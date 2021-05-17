@@ -22,10 +22,11 @@ export const Register = (props) => {
                 "first_name": firstName.current.value,
                 "last_name": lastName.current.value,
                 "email": email.current.value,
-                "password": password.current.value
+                "password": password.current.value,
+                "bio": bio.current.value
             }
 
-            return fetch("http://127.0.0.1:8088/register", {
+            return fetch("http://127.0.0.1:8000/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -67,6 +68,10 @@ export const Register = (props) => {
                 <fieldset>
                     <label htmlFor="inputEmail"> Email address </label>
                     <input ref={email} type="email" name="email" className="form-control" placeholder="Email address" required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="bio"> Bio </label>
+                    <input ref={bio} type="bio" name="bio" className="form-control" placeholder="Bio" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="inputPassword"> Password </label>
