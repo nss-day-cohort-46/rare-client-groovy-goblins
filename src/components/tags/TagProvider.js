@@ -8,7 +8,7 @@ export const TagProvider = props => {
 
 
     const addTag = new_tag => {
-        return fetch("http://localhost:8088/tags", {
+        return fetch("http://localhost:8000/tags", {
             method: "POST",
             headers: {
                 "Content-Type": "aaplicatio/json"
