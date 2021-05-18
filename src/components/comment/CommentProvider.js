@@ -15,9 +15,24 @@ export const CommentProvider = (props) => {
         .then(setComments)
     }
 
+    const createComment = (comment) => {
+        return fetch("http://localhost:8000/comments", {
+            method: "POST",
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(comment)
+        })
+        .then(getComments(comment.postId))
+        .then(() => {
+            return comments
+        })
+    }
+
     return(
         <CommentContext.Provider value={{
-            comments, getComments
+            comments, getComments, createComment
         }}>
             {props.children}
         </CommentContext.Provider>
