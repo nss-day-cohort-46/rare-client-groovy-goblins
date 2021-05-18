@@ -4,9 +4,14 @@ export const PostContext = React.createContext()
 
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([])
+    console.log('posts: ', posts);
 
     const getPosts = () => {
-        return fetch("http://localhost:8000/posts")
+        return fetch("http://localhost:8000/posts", {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 setPosts(data)
@@ -16,13 +21,20 @@ export const PostProvider = (props) => {
     }
 
     const getPostsByUserId = user_id => {
-        return fetch(`http://localhost:8000/posts?user_id=${user_id}`)
+        return fetch(`http://localhost:8000/posts?user_id=${user_id}`,  {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+            }
+        })
             .then(res => res.json())
             .then(setPosts)
     }
 
     const deletePost = ( id, user_id ) => {
         return fetch(`http://localhost:8000/posts/${id}`, {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+            },
             method: "DELETE"
         })
             .then(() => getPostsByUserId(user_id))
@@ -32,7 +44,8 @@ export const PostProvider = (props) => {
         return fetch(`http://localhost:8000/posts/${post.id}`, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("lu_token")}`
             },
             body: JSON.stringify(post)
             })
@@ -43,7 +56,8 @@ export const PostProvider = (props) => {
         return fetch("http://localhost:8000/posts", {
             method: "POST",
                 headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("lu_token")}`
             },
             body: JSON.stringify(postObj)
         })
@@ -52,7 +66,11 @@ export const PostProvider = (props) => {
     }
 
     const getPostById = id => {
-        return fetch(`http://localhost:8000/posts/${id}`)
+        return fetch(`http://localhost:8000/posts/${id}`, {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+            }
+        })
             .then(res => res.json())
     }
 

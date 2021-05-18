@@ -44,7 +44,7 @@ export const PostList = () => {
                     <p><b>Title: </b><Link to={`/posts/detail/${post.id}`}> {post.title}</Link></p>
 
                     <p><b>Category: </b>{post.category.label}</p>
-                    <p><b>Author: </b>{post.author.first_name} {post.author.last_name}</p>
+                    <p><b>Author: </b>{post.user.id} {post?.author?.last_name}</p>
 
                     {
                         session_user_id === post.user_id 
