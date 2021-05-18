@@ -5,9 +5,9 @@ import "./Post.css"
 
 export const PostList = () => {
     const { posts, getPosts, getPostsByUserId, deletePost } = useContext(PostContext)
-
     const session_user_id = parseInt(localStorage.getItem("rare_user_id"))
-
+    const sortedPosts = posts.sort((a, b) => a.publication_date > b.publication_date ? 1 : -1)
+    console.log('sortedPosts: ', sortedPosts);
     const { user_id } = useParams()
     const history = useHistory()
 
@@ -39,12 +39,13 @@ export const PostList = () => {
     return (<>
 
         <div>
-            {posts.map(post =>
+            {sortedPosts.map(post =>
                 <div className="post_card" key={post.id}>
                     <p><b>Title: </b><Link to={`/posts/detail/${post.id}`}> {post.title}</Link></p>
 
                     <p><b>Category: </b>{post.category.label}</p>
                     <p><b>Author: </b>{post.user.id} {post?.author?.last_name}</p>
+                    <p><b>Posted: </b>{post.publication_date}</p>
 
                     {
                         session_user_id === post.user_id 
