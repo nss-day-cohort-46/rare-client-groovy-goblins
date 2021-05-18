@@ -2,8 +2,9 @@ import React from "react"
 import { Route } from "react-router-dom"
 import { PostProvider } from "./posts/PostProvider"
 import { PostList } from "./posts/PostList"
-import { TagProvider } from "./tags/TagProvider"
 import { TagForm } from "./tags/TagForm"
+import { TagList } from "./tags/TagList"
+import { TagProvider } from "./tags/TagProvider"
 import { CategoryList } from "./category/CategoryList"
 import { CategoryProvider } from "./category/CategoryProvider"
 import { CategoryForm } from "./category/CategoryForm"
@@ -50,11 +51,9 @@ export const ApplicationViews = () => {
                 </Route>
             </PostProvider>
             <TagProvider>
-                <Route path="/tags/create">
-                    <TagForm />
+                <Route exact path="/tags">
+                    <TagList />
                 </Route>
-            </TagProvider>
-            <TagProvider>
                 <Route path="/tags/create">
                     <TagForm />
                 </Route>
