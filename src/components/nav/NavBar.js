@@ -25,7 +25,7 @@ export const NavBar = () => {
                 <Link className="navbar__link" to="/posting">New Post</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/">Tag MGMT</Link>
+                <Link className="navbar__link" to="/tags">Tag MGMT</Link>
             </li>
             <li className="navbar__item">
                 <Link className="navbar__link" to="/categories">Category MGMT</Link>
