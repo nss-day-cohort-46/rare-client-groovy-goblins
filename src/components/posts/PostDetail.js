@@ -7,6 +7,7 @@ export const PostDetail = () => {
   const { getPostById } = useContext(PostContext)
 
 	const [post, setPost] = useState({})
+  console.log('post: ', post);
 
 	const {postId} = useParams();
 
