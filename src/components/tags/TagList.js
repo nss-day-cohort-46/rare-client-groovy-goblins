@@ -37,12 +37,12 @@ export const TagList = () => {
 
               return <li key={tag.id} className="tags_list--item">
                 <div className="tag_label">{ tag.label }</div>
-                <div>
+                { tag.isStaff && <div>
                   <button className="btn--delete" onClick={(e) => {
                     e.preventDefault()
                     deleteHandler(tag.id)
                   }}>Delete</button>
-                </div>
+                </div> }
               </li>
             })
           }
