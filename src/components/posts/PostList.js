@@ -33,21 +33,25 @@ export const PostList = () => {
     }
 
     const approveButton = post => {
-        if (post.approved) {
-            return (
-                <button type="button" key={`unApprove--${post.id}`} onClick={(e) => {
-                    e.preventDefault()
-                }}>Un-Approve</button>
-            )
-        } else {
-            return (
-                <button type="button" key={`approve--${post.id}`} onClick={(e) => {
-                    e.preventDefault()
-                    approvePost(post)
-                }}>Approve</button>
-            )
-        }
 
+        if (localStorage.isStaff) {
+
+            if (post.approved) {
+                return (
+                    <button type="button" key={`unApprove--${post.id}`} onClick={(e) => {
+                        e.preventDefault()
+                    }}>Un-Approve</button>
+                )
+            } else {
+                return (
+                    <button type="button" key={`approve--${post.id}`} onClick={(e) => {
+                        e.preventDefault()
+                        approvePost(post)
+                    }}>Approve</button>
+                )
+            }
+
+        }
     }
 
 
