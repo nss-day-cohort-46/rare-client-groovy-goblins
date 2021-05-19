@@ -16,28 +16,32 @@ export const PostProvider = (props) => {
             .then(data => {
                 setPosts(data)
                 return data
-                
+
             })
     }
 
     const getPostsByUserId = user_id => {
-        return fetch(`http://localhost:8000/posts?user_id=${user_id}`,  {
+        return fetch(`http://localhost:8000/posts?user_id=${user_id}`, {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             }
         })
             .then(res => res.json())
-            .then(setPosts)
+            .then(data => {
+                setPosts(data)
+                console.log('data: ', data);
+                return data
+            })
     }
 
-    const deletePost = ( id, user_id ) => {
+    const deletePost = (id, userId) => {
         return fetch(`http://localhost:8000/posts/${id}`, {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
             method: "DELETE"
         })
-            .then(() => getPostsByUserId(user_id))
+            .then(() => getPostsByUserId(userId))
     }
 
     const editPost = post => {
@@ -48,14 +52,14 @@ export const PostProvider = (props) => {
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
             body: JSON.stringify(post)
-            })
-            .then(getPosts)    
+        })
+            .then(getPosts)
     }
-    
+
     const addPost = postObj => {
         return fetch("http://localhost:8000/posts", {
             method: "POST",
-                headers: {
+            headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
@@ -82,8 +86,8 @@ export const PostProvider = (props) => {
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
             body: JSON.stringify(post)
-            })
-            .then(getPosts)    
+        })
+            .then(getPosts)
     }
 
 

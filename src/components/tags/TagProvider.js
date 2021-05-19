@@ -5,20 +5,31 @@ export const TagContext = createContext()
 export const TagProvider = props => {
     const [ tags, setTags ] = useState([])
 
-
+    const getTags = () => {
+        return fetch("http://localhost:8000/tags", {
+            headers:{
+                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+            }
+        })
+            .then(res => res.json())
+            .then(setTags)
+    } // getTags
 
     const addTag = new_tag => {
         return fetch("http://localhost:8000/tags", {
             method: "POST",
             headers: {
-                "Content-Type": "aaplicatio/json"
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("lu_token")}`
             },
             body: JSON.stringify(new_tag)
         })
     }
+
+
     return (
         <TagContext.Provider value={{
-            tags, addTag
+            tags, addTag, getTags
         }}>
             {props.children}
         </TagContext.Provider>
