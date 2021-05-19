@@ -5,6 +5,8 @@ import { Link } from "react-router-dom"
 
 export const CategoryList = () => {
     const { categories, getCategories, deleteCategory } = useContext(CategoryContext)
+     const loggedInUser = localStorage.getItem("rare_user_id")
+
     const deleteWarning = useRef()
     const [deleteCat, setDeleteCat] = useState({
         "label": "",
@@ -37,22 +39,24 @@ export const CategoryList = () => {
         handleCloseModal()
     }
 
-
+    // So we wouldn't have to worry about missing ?'s in the return component
+    // and avoid the "cannot find label of undefined" error.
+    if(!Array.isArray(categories)) return (<div>Please Log In to View</div>)
 
     return (
+        loggedInUser && Array.isArray(categories)
+        ?
         <>
+            <h2>Labels</h2>
+
+            <ul className="category_list">
             {
-                categories
-                ? 
-                    <ul className="category_list">
-                    {
-                        categories.map((cat, i) => {
-                            return <li key={i} className="category_list--item ">{ cat.label }</li>
-                        })
-                    }
-                    </ul>
-                : <>Loading</>
+                categories.map((cat, i) => {
+                    return <li key={i} className="category_list--item ">{ cat.label }</li>
+                })
             }
+            </ul>
+
             <div>
                 <dialog className="dialog dialog--auth" ref={deleteWarning}>
                     <div>Are you sure you want to delete the category "{deleteCat.label}"?</div>
@@ -67,9 +71,17 @@ export const CategoryList = () => {
                     </div>
                 )} */}
             </div>
-            <Link to={`/categories/create`}>
+
+            <Link to="/categories/create">
+                <button className="createTag" type="button">
                 Create Category
+                </button>
             </Link>
+            <div>(=ↀωↀ=)✧</div>
+        </>
+        :
+        <>
+            <div>Please Log In to View</div>
             <div>(=ↀωↀ=)✧</div>
         </>
     )
