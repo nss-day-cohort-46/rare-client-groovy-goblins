@@ -34,14 +34,14 @@ export const PostProvider = (props) => {
             })
     }
 
-    const deletePost = ( id, user_id ) => {
+    const deletePost = ( id, userId ) => {
         return fetch(`http://localhost:8000/posts/${id}`, {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
             method: "DELETE"
         })
-            .then(() => getPostsByUserId(user_id))
+            .then(() => getPostsByUserId(userId))
     }
 
     const editPost = post => {
