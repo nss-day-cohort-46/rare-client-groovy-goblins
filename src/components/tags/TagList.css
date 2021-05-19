@@ -5,7 +5,7 @@
 .tags_list {
   list-style-type: none;
   padding: 0;
-  width: 30%;
+  width: 50%;
   margin: 0 auto;
 }
 
@@ -15,4 +15,20 @@
   border: 2px solid black;
   margin: 10px auto;
   text-align: center;
+
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+.tag_label {
+  width: 100%;
+  padding: 10px;
+  background: lightgray;
+}
+
+.btn--delete {
+  width: 100%;
+  padding: 10px;
+  background: salmon;
 }
