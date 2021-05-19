@@ -4,7 +4,7 @@ import { Link, useHistory, useParams } from "react-router-dom"
 import "./Post.css"
 
 export const PostList = () => {
-    const { posts, getPosts, getPostsByUserId, deletePost } = useContext(PostContext)
+    const { posts, getPosts, getPostsByUserId, deletePost, approvePost } = useContext(PostContext)
     const session_user_id = parseInt(localStorage.getItem("rare_user_id"))
     const sortedPosts = posts.sort((a, b) => a.publication_date > b.publication_date ? 1 : -1)
     console.log('sortedPosts: ', sortedPosts);
@@ -43,6 +43,7 @@ export const PostList = () => {
             return (
                 <button type="button" key={`approve--${post.id}`} onClick={(e) => {
                     e.preventDefault()
+                    approvePost(post)
                 }}>Approve</button>
             )
         }

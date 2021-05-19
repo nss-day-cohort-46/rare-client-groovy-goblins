@@ -74,9 +74,22 @@ export const PostProvider = (props) => {
             .then(res => res.json())
     }
 
+    const approvePost = post => {
+        return fetch(`http://localhost:8000/posts/${post.id}/approve`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+            },
+            body: JSON.stringify(post)
+            })
+            .then(getPosts)    
+    }
+
+
     return (
         <PostContext.Provider value={{
-            posts, getPosts, getPostsByUserId, addPost, editPost, getPostById, deletePost
+            posts, getPosts, getPostsByUserId, addPost, editPost, getPostById, deletePost, approvePost
         }}>
             {props.children}
         </PostContext.Provider>
