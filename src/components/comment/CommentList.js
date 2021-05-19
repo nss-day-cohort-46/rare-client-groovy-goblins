@@ -3,8 +3,9 @@ import { useParams } from "react-router"
 import { CommentContext } from "./CommentProvider"
 
 export const CommentList = () => {
-    const {getComments, comments, createComment} = useContext(CommentContext)
+    const {getComments, comments, createComment, deleteComment} = useContext(CommentContext)
     const {postId} = useParams()
+    const userId = parseInt(localStorage.getItem("userId"))
     const [isLoading, setIsLoading] = useState(true)
 
     let d = new Date();
@@ -25,7 +26,19 @@ export const CommentList = () => {
 
     const handleSubmitClick = (event) => {
         setIsLoading(true)
-        createComment(comment)
+        return createComment(comment)
+        .then(getComments(parseInt(postId)))
+        .then(setIsLoading(false))
+    }
+
+    const handleDeleteClick = (event) => {
+        setIsLoading(true)
+        const [prefix, id] = event.target.id.split("--")
+        return deleteComment({
+            commentId: parseInt(id),
+            postId: parseInt(postId)
+        })
+        .then(getComments(parseInt(postId)))
         .then(setIsLoading(false))
     }
 
@@ -47,6 +60,11 @@ export const CommentList = () => {
                     <div className="commentCard__author">Author: {comment.author}</div>
                     <div className="commentCard__date">Date: {comment.created_on}</div>
                     <div className="commentCard__content">{comment.content}</div>
+                    {
+                        comment.author === userId 
+                        ? <button id={`delete--${comment.id}`} onClick={handleDeleteClick}>Delete</button>
+                        : <></>
+                    }
                 </div>
             })}
         </section>

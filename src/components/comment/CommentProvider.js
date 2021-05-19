@@ -6,7 +6,7 @@ export const CommentProvider = (props) => {
     const [comments, setComments] = useState()
 
     const getComments = (postId) => {
-        return fetch(`http://localhost:8000/comments/${postId}`, {
+        return fetch(`http://localhost:8000/posts/${postId}/comments`, {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             }
@@ -25,14 +25,21 @@ export const CommentProvider = (props) => {
             body: JSON.stringify(comment)
         })
         .then(getComments(comment.postId))
-        .then(() => {
-            return comments
+    }
+
+    const deleteComment = (obj) => {
+        return fetch(`http://localhost:8000/comments/${obj.commentId}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+            }
         })
+        .then(getComments(obj.postId))
     }
 
     return(
         <CommentContext.Provider value={{
-            comments, getComments, createComment
+            comments, getComments, createComment, deleteComment
         }}>
             {props.children}
         </CommentContext.Provider>
