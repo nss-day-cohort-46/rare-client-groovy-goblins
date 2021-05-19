@@ -3,7 +3,7 @@ import { useParams } from "react-router"
 import { CommentContext } from "./CommentProvider"
 
 export const CommentList = () => {
-    const {getComments, comments, createComment, deleteComment} = useContext(CommentContext)
+    const {getComments, comments, createComment, deleteComment, getCommentById, editComment} = useContext(CommentContext)
     const {postId} = useParams()
     const userId = parseInt(localStorage.getItem("userId"))
     const [isLoading, setIsLoading] = useState(true)
@@ -26,9 +26,25 @@ export const CommentList = () => {
 
     const handleSubmitClick = (event) => {
         setIsLoading(true)
-        return createComment(comment)
-        .then(getComments(parseInt(postId)))
-        .then(setIsLoading(false))
+        if(comment.id){
+            return editComment(comment)
+            .then(setComment({
+                postId: parseInt(postId),
+                content: "",
+                createdOn: date_format_str
+            }))
+            .then(getComments(parseInt(postId)))
+            .then(setIsLoading(false))
+        } else{
+            return createComment(comment)
+            .then(setComment({
+                postId: parseInt(postId),
+                content: "",
+                createdOn: date_format_str
+            }))
+            .then(getComments(parseInt(postId)))
+            .then(setIsLoading(false))
+        }
     }
 
     const handleDeleteClick = (event) => {
@@ -42,6 +58,18 @@ export const CommentList = () => {
         .then(setIsLoading(false))
     }
 
+    const handleEditClick = (event) => {
+        const [prefix, id] = event.target.id.split("--")
+        getCommentById(parseInt(id))
+        .then(res=>setComment({
+            id: res.id,
+            postId: res.post,
+            authorId: res.author,
+            content: res.content,
+            createdOn: res.created_on
+        }))
+    }
+
     useEffect(() => {
         getComments(postId)
         .then(setIsLoading(false))
@@ -51,7 +79,7 @@ export const CommentList = () => {
         <>
         <section className="commentForm">
             <label htmlFor="commentForm__content">Comment: </label>
-            <input type="text" onChange={handleInputChange} id="content" autoFocus required></input>
+            <input type="text" onChange={handleInputChange} id="content" value={comment.content} autoFocus required></input>
             <button disabled={isLoading} onClick={handleSubmitClick}>Submit</button>
         </section>
         <section className="commentList">
@@ -63,6 +91,11 @@ export const CommentList = () => {
                     {
                         comment.author === userId 
                         ? <button id={`delete--${comment.id}`} onClick={handleDeleteClick}>Delete</button>
+                        : <></>
+                    }
+                    {
+                        comment.author === userId 
+                        ? <button id={`edit--${comment.id}`} onClick={handleEditClick}>Edit</button>
                         : <></>
                     }
                 </div>
