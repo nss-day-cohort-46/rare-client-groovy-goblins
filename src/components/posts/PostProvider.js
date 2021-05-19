@@ -9,7 +9,7 @@ export const PostProvider = (props) => {
     const getPosts = () => {
         return fetch("http://localhost:8000/posts", {
             headers: {
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             }
         })
             .then(res => res.json())
@@ -23,7 +23,7 @@ export const PostProvider = (props) => {
     const getPostsByUserId = user_id => {
         return fetch(`http://localhost:8000/posts?user_id=${user_id}`,  {
             headers: {
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             }
         })
             .then(res => res.json())
@@ -33,7 +33,7 @@ export const PostProvider = (props) => {
     const deletePost = ( id, user_id ) => {
         return fetch(`http://localhost:8000/posts/${id}`, {
             headers: {
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
             method: "DELETE"
         })
@@ -45,7 +45,7 @@ export const PostProvider = (props) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
             body: JSON.stringify(post)
             })
@@ -57,7 +57,7 @@ export const PostProvider = (props) => {
             method: "POST",
                 headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
             body: JSON.stringify(postObj)
         })
@@ -68,7 +68,7 @@ export const PostProvider = (props) => {
     const getPostById = id => {
         return fetch(`http://localhost:8000/posts/${id}`, {
             headers: {
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             }
         })
             .then(res => res.json())
@@ -79,7 +79,7 @@ export const PostProvider = (props) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
             body: JSON.stringify(post)
             })
