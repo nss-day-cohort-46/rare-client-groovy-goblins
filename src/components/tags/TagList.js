@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from "react"
+import { Link } from "react-router-dom"
 import { TagContext } from "./TagProvider"
 import "./TagList.css"
 
 export const TagList = () => {
  const { tags, getTags } = useContext(TagContext)
+ const loggedInUser = localStorage.getItem("lu_token")
 
  useEffect(() => {
   getTags()
@@ -23,6 +25,17 @@ export const TagList = () => {
       tags.map((tag, i) => <li key={i} className="tags_list--item">{ tag.label }</li>)
      }
    </ul>
+
+     {
+       loggedInUser
+       ?
+        <Link to="/tags/create">
+          <button className="createTag" type="button">
+            Create Tag
+          </button>
+        </Link>
+       : <></>
+     }
   </> 
   : <>Loading Tags</>
  )

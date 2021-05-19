@@ -19,11 +19,14 @@ export const TagProvider = props => {
         return fetch("http://localhost:8000/tags", {
             method: "POST",
             headers: {
-                "Content-Type": "aaplication/json"
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("lu_token")}`
             },
             body: JSON.stringify(new_tag)
         })
     }
+
+
     return (
         <TagContext.Provider value={{
             tags, addTag, getTags
