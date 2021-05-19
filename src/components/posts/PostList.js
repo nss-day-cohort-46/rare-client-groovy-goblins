@@ -5,10 +5,13 @@ import "./Post.css"
 
 export const PostList = () => {
     const { posts, getPosts, getPostsByUserId, deletePost } = useContext(PostContext)
-    const session_user_id = parseInt(localStorage.getItem("rare_user_id"))
-    const sortedPosts = posts.sort((a, b) => a.publication_date > b.publication_date ? 1 : -1)
+    const session_user_id = localStorage.getItem("rare_user_id")
+    console.log('session_user_id: ', session_user_id);
+    
+    const sortedPosts = posts.sort((a, b) => a.publication_date > b.publication_date ? -1 : 1)
     console.log('sortedPosts: ', sortedPosts);
     const { user_id } = useParams()
+    console.log('user_id: ', user_id);
     const history = useHistory()
 
     const [isLoading, setIsLoading] = useState(true)
@@ -17,10 +20,10 @@ export const PostList = () => {
     useEffect(() => {
         if (user_id > 0) {
             getPostsByUserId(user_id)
-                .then(() => setIsLoading(false))
+            .then(() => setIsLoading(false))
         } else {
             getPosts()
-                .then(() => setIsLoading(false))
+            .then(() => setIsLoading(false))
         }
     }, [])
 
@@ -44,7 +47,7 @@ export const PostList = () => {
                     <p><b>Title: </b><Link to={`/posts/detail/${post.id}`}> {post.title}</Link></p>
 
                     <p><b>Category: </b>{post.category.label}</p>
-                    <p><b>Author: </b>{post.user.id} {post?.author?.last_name}</p>
+                    <p><b>Author: </b>{post.user.first_name} {post.user.last_name}</p>
                     <p><b>Posted: </b>{post.publication_date}</p>
 
                     {
