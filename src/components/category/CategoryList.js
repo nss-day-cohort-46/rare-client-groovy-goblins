@@ -14,10 +14,10 @@ export const CategoryList = () => {
     useEffect(() => {
         getCategories()
     }, [])
-    const sortedCats = categories.sort((a, b) => a.label > b.label ? 1 : -1)
+    // const sortedCats = categories.sort((a, b) => a.label > b.label ? 1 : -1)
 
     // filter out "deleted" categories
-    const filteredCats = sortedCats.filter(cat => cat.deleted == 0)
+    // const filteredCats = sortedCats.filter(cat => cat.deleted == 0)
 
     const handleDeleteWarning = event => {
         deleteWarning.current.showModal()
@@ -41,23 +41,35 @@ export const CategoryList = () => {
 
     return (
         <>
-            <Link to={`/categories/create`}>
-                Create Category
-            </Link>
+            {
+                categories
+                ? 
+                    <ul className="category_list">
+                    {
+                        categories.map((cat, i) => {
+                            return <li key={i} className="category_list--item ">{ cat.label }</li>
+                        })
+                    }
+                    </ul>
+                : <>Loading</>
+            }
             <div>
                 <dialog className="dialog dialog--auth" ref={deleteWarning}>
                     <div>Are you sure you want to delete the category "{deleteCat.label}"?</div>
                     <button className="button--close" onClick={handleCloseModal}>Cancel</button>
                     <button className="button--close" onClick={handleClickDelete}>Confirm</button>
                 </dialog>
-                {filteredCats.map(c =>
+                {/* {filteredCats.map(c =>
                     <div className="category_card" key={c.id}>
                         <p><b>label: </b>{c.label}</p>
                         {console.log(c.id)}
                         <button id={c.id} onClick={handleDeleteWarning}>Delete</button>
                     </div>
-                )}
+                )} */}
             </div>
+            <Link to={`/categories/create`}>
+                Create Category
+            </Link>
             <div>(=ↀωↀ=)✧</div>
         </>
     )
