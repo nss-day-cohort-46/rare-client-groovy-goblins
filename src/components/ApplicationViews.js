@@ -54,7 +54,7 @@ export const ApplicationViews = () => {
                 <Route exact path="/tags">
                     <TagList />
                 </Route>
-                <Route path="/tags/create">
+                <Route exact path="/tags/create">
                     <TagForm />
                 </Route>
             </TagProvider>
