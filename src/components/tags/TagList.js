@@ -13,6 +13,7 @@ export const TagList = () => {
 
  // So we wouldn't have to worry about missing ?'s in the return component
  // and avoid the "cannot find label of undefined" error.
+ // Comment to commit and push for pull request.
  if(!tags) return (<div>Loading Tags</div>)
 
  return (
@@ -29,7 +30,7 @@ export const TagList = () => {
        loggedInUser
        ?
         <Link to="/tags/create">
-          <button className="crateTag" type="button">
+          <button className="createTag" type="button">
             Create Tag
           </button>
         </Link>
