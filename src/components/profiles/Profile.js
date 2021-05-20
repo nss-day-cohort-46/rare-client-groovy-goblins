@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react"
 import { EventContext } from "../event/EventProvider.js"
 import { HumanDate } from "../utils/HumanDate.js"
-import { ProfileContext } from "./AuthProvider.js"
+import { ProfileContext } from "./ProfileProvider.js"
 import "./Profile.css"
 
 

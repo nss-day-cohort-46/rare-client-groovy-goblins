@@ -10,6 +10,8 @@ import { CategoryProvider } from "./category/CategoryProvider"
 import { CategoryForm } from "./category/CategoryForm"
 import { PostForm } from "./posts/PostForm"
 import { PostDetail } from "./posts/PostDetail"
+import { ProfileList } from "./profiles/ProfileList"
+import { ProfileProvider } from "./profiles/ProfileProvider"
 
 export const ApplicationViews = () => {
     return <>
@@ -29,20 +31,20 @@ export const ApplicationViews = () => {
             </PostProvider>
 
             <PostProvider>
-            <CategoryProvider>
-                <Route exact path="/categories">
-                    <CategoryList />
-                </Route>
-                <Route exact path="/posting">
-                    <PostForm />
-                </Route>
-                <Route exact path="/posts/user/edit/:postId(\d+)">
-                    <PostForm />
-                </Route>
-                <Route exact path="/categories/create" render={() => {
-                    return <CategoryForm />
-                }}/>
-            </CategoryProvider>
+                <CategoryProvider>
+                    <Route exact path="/categories">
+                        <CategoryList />
+                    </Route>
+                    <Route exact path="/posting">
+                        <PostForm />
+                    </Route>
+                    <Route exact path="/posts/user/edit/:postId(\d+)">
+                        <PostForm />
+                    </Route>
+                    <Route exact path="/categories/create" render={() => {
+                        return <CategoryForm />
+                    }} />
+                </CategoryProvider>
             </PostProvider>
 
             <PostProvider>
@@ -58,6 +60,12 @@ export const ApplicationViews = () => {
                     <TagForm />
                 </Route>
             </TagProvider>
+
+            <ProfileProvider>
+                <Route exact path="/profiles">
+                    <ProfileList />
+                </Route>
+            </ProfileProvider>
         </main>
     </>
 }
