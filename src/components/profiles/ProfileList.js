@@ -14,8 +14,10 @@ export const ProfileList = () => {
         <h2>User Profiles</h2>
         <div>
             {allProfiles.length > 0 ? allProfiles.map(profile => 
-                    <div key={profile.userName} className="profile_card">
-                        <p>Name: {profile.first_name} {profile.last_name}</p>
+                    <div key={profile.id} className="profile_card">
+                        
+                        <p>Name: <Link to={`profiles/${profile.id}/detail`}>{profile.first_name} {profile.last_name}</Link></p>
+                        
                         <p>Username: {profile.username}</p>
                         <p>Admin: {profile.is_staff ? "Yes" : "No"}</p>
                     </div>
