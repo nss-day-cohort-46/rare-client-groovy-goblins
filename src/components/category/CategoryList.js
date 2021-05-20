@@ -17,6 +17,11 @@ export const CategoryList = () => {
     useEffect(() => {
         getCategories()
     }, [])
+
+    // const sortedCats = categories.sort((a, b) => a.label > b.label ? 1 : -1)
+
+    // filter out "deleted" categories
+    // const filteredCats = sortedCats.filter(cat => cat.deleted == 0)
     
     const deleteHanlder = ( indx ) => deleteCategoryById(indx)
 
@@ -52,11 +57,6 @@ export const CategoryList = () => {
                     return <li key={ cat.id } className="category_list--item">
                         <div className="cat_label">{ cat.label }</div>
                         { isStaff && <div>
-                            {/* <dialog className="dialog dialog--auth" ref={deleteWarning}>
-                                <div>Are you sure you want to delete the category `${cat.label}`?</div>
-                                <button className="button--close" onClick={handleCloseModal}>Cancel</button>
-                                <button className="button--close" onClick={handleClickDelete}>Confirm</button>
-                            </dialog> */}
                             <button className="btn--delete" onClick={(e) => {
                                 e.preventDefault()
                                 deleteHanlder(cat.id)
@@ -78,7 +78,7 @@ export const CategoryList = () => {
                     <button className="button--close" onClick={handleCloseModal}>Cancel</button>
                     <button className="button--close" onClick={handleClickDelete}>Confirm</button>
                 </dialog>
-                {filteredCats.map(c =>
+                {/* {filteredCats.map(c =>
                     <div className="category_card" key={c.id}>
                         <p><b>label: </b>{c.label}</p>
                         {console.log(c.id)}
