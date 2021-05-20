@@ -44,17 +44,16 @@ export const PostForm = () => {
             id: post.id,
             title: post.title,
             content: post.content,
-            categoryId: parseInt(post.category.id),
+            categoryId: parseInt(post.category),
             imageUrl: post.image_url
           })
     .then(() => history.push(`/posts/user/${userId}`)) //This link string might be different for posts. Hasn't been coded yet.
         } else {
           addPost({
-              user_id: post.user_id,
-              categoryId: parseInt(post.category.id),
               title: post.title,
-              imageUrl: post.image_url,
-              content: post.content
+              content: post.content,
+              categoryId: parseInt(post.category),
+              imageUrl: post.image_url
           })
           .then(() => history.push("/posts")) //This link string might be different for posts. Hasn't been coded yet.
     }   
@@ -66,8 +65,14 @@ useEffect(() => {
   getPosts()
   .then(posts => { 
     const PostById = posts.find(p => p.id === parseInt(postId))
-    
-    setPost(PostById)
+    console.log('PostById: ', PostById);
+    setPost({
+      id: PostById.id,
+      title: PostById.title,
+      content: PostById.content,
+      image_url: PostById.image_url,
+      category: PostById.category.id  
+    })
   })}
 }, [])
     
@@ -104,7 +109,7 @@ useEffect(() => {
         <fieldset>
           <div className="form-group">
             <label htmlFor="categoryId">Category:</label>
-            <select value={post.category.id} id="category" className="form-control" onChange={handleControlledInputChange}>
+            <select value={post.category} id="category" className="form-control" onChange={handleControlledInputChange}>
               <option value="0">Select a Category</option>
               {categories.map(c => (
                 <option key={c.id} value={c.id}>
