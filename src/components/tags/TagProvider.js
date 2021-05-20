@@ -15,6 +15,15 @@ export const TagProvider = props => {
             .then(setTags)
     } // getTags
 
+    const getTagById = ( id ) => {
+      return fetch(`http://localhost:8000/tags/${id}`, {
+        headers:{
+          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+        }
+      })
+      .then(response => response.json())
+    } // getTagById
+
     const addTag = new_tag => {
         return fetch("http://localhost:8000/tags", {
             method: "POST",
@@ -36,10 +45,21 @@ export const TagProvider = props => {
         .then(getTags)
     } // deleteTagById
 
+    const editTagById = ( tag ) => {
+        return fetch(`http://localhost:8000/tags/${ tag.id }`, {
+            method: "PUT",
+            headers: {
+                'Authorization': `Token ${localStorage.getItem("rare_user_id")}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(tag)
+        })
+        .then(getTags)
+    } // editTagById
 
     return (
         <TagContext.Provider value={{
-            tags, addTag, getTags, deleteTagById
+            tags, addTag, getTags, deleteTagById, editTagById, getTagById
         }}>
             {props.children}
         </TagContext.Provider>
