@@ -25,18 +25,22 @@ export const PostProvider = (props) => {
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             }
         })
-            .then(res => res.json())
-            .then(setPosts)
+        .then(res => res.json())
+        .then(data => {
+            setPosts(data)
+            console.log('data: ', data);
+                return data
+            })
     }
 
-    const deletePost = ( id, user_id ) => {
+    const deletePost = ( id, userId ) => {
         return fetch(`http://localhost:8000/posts/${id}`, {
             headers: {
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
             method: "DELETE"
         })
-            .then(() => getPostsByUserId(user_id))
+            .then(() => getPostsByUserId(userId))
     }
 
     const editPost = post => {
@@ -44,7 +48,7 @@ export const PostProvider = (props) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
             body: JSON.stringify(post)
             })
@@ -56,7 +60,7 @@ export const PostProvider = (props) => {
             method: "POST",
                 headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
             body: JSON.stringify(postObj)
         })

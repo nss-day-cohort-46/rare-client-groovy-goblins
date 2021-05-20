@@ -1,21 +1,15 @@
-.category_card {
-  border: 1px solid black;
-  padding: 1em;
+.createTag {
+  padding: 10px;
 }
 
-.dialog {
-  min-width: 15rem;
-  min-height: 5rem;
-}
-
-.category_list {
+.tags_list {
   list-style-type: none;
   padding: 0;
   width: 30%;
   margin: 0 auto;
 }
 
-.category_list--item {
+.tags_list--item {
   margin: 0;
   padding: 10px;
   border: 2px solid black;
