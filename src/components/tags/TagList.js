@@ -6,6 +6,8 @@ import "./TagList.css"
 export const TagList = () => {
  const { tags, getTags, deleteTagById } = useContext(TagContext)
  const loggedInUser = localStorage.getItem("rare_user_id")
+ const isStaff = localStorage.getItem("isStaff") === "true"
+ console.log(`isStaff is ${typeof(isStaff)}`)
 
  useEffect(() => {
   getTags()
@@ -37,7 +39,7 @@ export const TagList = () => {
 
               return <li key={tag.id} className="tags_list--item">
                 <div className="tag_label">{ tag.label }</div>
-                { tag.isStaff && <div>
+                { isStaff && <div>
                   <button className="btn--delete" onClick={(e) => {
                     e.preventDefault()
                     deleteHandler(tag.id)
