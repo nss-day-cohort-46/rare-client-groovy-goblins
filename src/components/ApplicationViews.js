@@ -12,6 +12,7 @@ import { PostForm } from "./posts/PostForm"
 import { PostDetail } from "./posts/PostDetail"
 import { ProfileList } from "./profiles/ProfileList"
 import { ProfileProvider } from "./profiles/ProfileProvider"
+import { Profile } from "./profiles/Profile"
 
 export const ApplicationViews = () => {
     return <>
@@ -64,6 +65,9 @@ export const ApplicationViews = () => {
             <ProfileProvider>
                 <Route exact path="/profiles">
                     <ProfileList />
+                </Route>
+                <Route path="/profiles/:userId(\d+)/detail">
+                    <Profile />
                 </Route>
             </ProfileProvider>
         </main>

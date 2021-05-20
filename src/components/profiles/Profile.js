@@ -1,16 +1,17 @@
 import React, { useEffect, useContext } from "react"
-import { EventContext } from "../event/EventProvider.js"
 import { HumanDate } from "../utils/HumanDate.js"
 import { ProfileContext } from "./ProfileProvider.js"
 import "./Profile.css"
+import { useParams } from "react-router"
 
 
 export const Profile = (props) => {
     const { profile, getProfile } = useContext(ProfileContext)
-    const { leaveEvent } = useContext(EventContext)
+
+    const userId = useParams()
 
     useEffect(() => {
-        getProfile()
+        getProfile(userId)
     }, [])
 
     return (
@@ -42,7 +43,7 @@ export const Profile = (props) => {
                                     <HumanDate date={event.date} /> @ {event.time}
                                 </div>
                                 <button className="btn btn-3"
-                                    onClick={() => leaveEvent(event.id).then(getProfile)}
+
                                 >Leave</button>
                             </div>
                         })
