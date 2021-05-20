@@ -38,9 +38,11 @@ export const CategoryList = () => {
         handleCloseModal()
     }
 
-
+    // if(!Array.isArray(categories)) return (<div>Loading Categories</div>)
 
     return (
+        loggedInUser && Array.isArray(categories)
+        ?
         <>
             <h2>Labels</h2>
 
@@ -50,6 +52,11 @@ export const CategoryList = () => {
                     return <li key={ cat.id } className="category_list--item">
                         <div className="cat_label">{ cat.label }</div>
                         { isStaff && <div>
+                            {/* <dialog className="dialog dialog--auth" ref={deleteWarning}>
+                                <div>Are you sure you want to delete the category `${cat.label}`?</div>
+                                <button className="button--close" onClick={handleCloseModal}>Cancel</button>
+                                <button className="button--close" onClick={handleClickDelete}>Confirm</button>
+                            </dialog> */}
                             <button className="btn--delete" onClick={(e) => {
                                 e.preventDefault()
                                 deleteHanlder(cat.id)
@@ -65,7 +72,7 @@ export const CategoryList = () => {
                 </button>
             </Link>
 
-            <div>
+            {/* <div>
                 <dialog className="dialog dialog--auth" ref={deleteWarning}>
                     <div>Are you sure you want to delete the category "{deleteCat.label}"?</div>
                     <button className="button--close" onClick={handleCloseModal}>Cancel</button>
@@ -78,7 +85,7 @@ export const CategoryList = () => {
                         <button id={c.id} onClick={handleDeleteWarning}>Delete</button>
                     </div>
                 )}
-            </div>
+            </div> */}
 
             <div>(=ↀωↀ=)✧</div>
         </>
