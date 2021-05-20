@@ -6,7 +6,7 @@ export const CommentProvider = (props) => {
     const [comments, setComments] = useState()
 
     const getComments = (postId) => {
-        return fetch(`http://localhost:8000/comments/${postId}`, {
+        return fetch(`http://localhost:8000/posts/${postId}/comments`, {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             }
