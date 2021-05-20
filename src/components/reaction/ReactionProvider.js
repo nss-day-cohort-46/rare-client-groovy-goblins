@@ -3,20 +3,17 @@ import React, { createContext, useState } from "react"
 export const ReactionContext = createContext()
 
 export const ReactionProvider = (props) => {
-    const [reactions, setReactions] = useState([])
-
     const getReactions = () => {
         return fetch("http://localhost:8000/reactions", {
             headers:{
-                "Authorization": "Token"
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             }
         })
         .then(res=>res.json())
-        .then(setReactions)
     }
 
     const addReaction = reaction => {
-        return fetch(`http://localhost:8000/posts/${id}/react`, {
+        return fetch(`http://localhost:8000/posts/${reaction.postId}/react`, {
             method: "POST",
             headers: {
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,
@@ -27,7 +24,7 @@ export const ReactionProvider = (props) => {
     }
     
     const removeReaction = reaction => {
-        return fetch(`http://localhost:8000/posts/${id}/react`, {
+        return fetch(`http://localhost:8000/posts/${reaction.postId}/react`, {
             method: "DELETE",
             headers: {
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,
@@ -39,7 +36,7 @@ export const ReactionProvider = (props) => {
 
     return(
         <ReactionContext.Provider value={{
-            reactions, getReactions, addReaction, removeReaction
+            getReactions, addReaction, removeReaction
         }}>
             {props.children}
         </ReactionContext.Provider>
