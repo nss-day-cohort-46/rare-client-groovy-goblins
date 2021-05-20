@@ -17,14 +17,22 @@ export const Profile = (props) => {
 
     const user = profile.user
 
+    const profileImage = () => {
+        if (profile.profile_image_url === "['profileImageUrl']") {
+            return "https://thesciencedog.files.wordpress.com/2013/09/golden-retriever-and-science1.jpg"
+        } else {
+            return profile.profile_image_url
+        }
 
+
+    }
     if (isLoading) return (<div>Loading</div>)
     return (
         <article className="profile">
             <header>
                 <h1>{user.first_name}'s Profile</h1>
             </header>
-            <img src={profile.profile_image_url} alt=""></img>
+            <img src={profileImage()} alt=""></img>
             <section className="profile__info">
                 <header className="profile__header">
                     <h3>Detail</h3>
