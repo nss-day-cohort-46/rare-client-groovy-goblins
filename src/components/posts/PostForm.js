@@ -119,7 +119,7 @@ useEffect(() => {
             event.preventDefault()
             handleSavePost()
           }}>{postId > 0 ? "Edit post" : "Make post"}</button>
-        {postId.postId > 0 ? <button className="btn btn-primary"
+        {postId > 0 ? <button className="btn btn-primary"
           onClick={event => {
             event.preventDefault()
             history.push(`/posts/user/${userId}`)}}
