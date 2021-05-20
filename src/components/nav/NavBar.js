@@ -8,6 +8,7 @@ export const NavBar = () => {
     const userId = localStorage.getItem("userId")
 
     const isStaff = JSON.parse(localStorage.getItem("isStaff"))
+    
     console.log(isStaff)
     console.log(true)
     return (
