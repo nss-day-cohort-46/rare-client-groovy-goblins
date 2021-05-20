@@ -7,7 +7,6 @@ export const TagList = () => {
  const { tags, getTags, deleteTagById } = useContext(TagContext)
  const loggedInUser = localStorage.getItem("rare_user_id")
  const isStaff = localStorage.getItem("isStaff") === "true"
- console.log(`isStaff is ${typeof(isStaff)}`)
 
  useEffect(() => {
   getTags()
