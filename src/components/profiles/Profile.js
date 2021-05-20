@@ -19,12 +19,12 @@ export const Profile = (props) => {
 
 
     if (isLoading) return (<div>Loading</div>)
-
     return (
         <article className="profile">
             <header>
                 <h1>{user.first_name}'s Profile</h1>
             </header>
+            <img src={profile.profile_image_url} alt=""></img>
             <section className="profile__info">
                 <header className="profile__header">
                     <h3>Detail</h3>
@@ -35,6 +35,7 @@ export const Profile = (props) => {
                 <div className="profile__username">Username: {user.username}</div>
                 <div className="profile__email">Email: {user.username}</div>
                 <div className="profile__joined">Joined: {HumanDate(profile.created_on)}</div>
+                <div className="profile__type">Type: {user.is_staff ? "Admin" : "Author"}</div>
             </section>
         </article>
     )

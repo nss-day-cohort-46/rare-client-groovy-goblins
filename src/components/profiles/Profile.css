@@ -14,3 +14,7 @@
     margin: 1em;
     padding: 0 0 0 .5em;
 }
+
+img {
+max-width: 15em;
+}
