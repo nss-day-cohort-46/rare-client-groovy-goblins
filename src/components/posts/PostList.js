@@ -5,11 +5,6 @@ import "./Post.css"
 
 export const PostList = () => {
     const { posts, getPosts, getPostsByUserId, deletePost } = useContext(PostContext)
-<<<<<<< HEAD
-    const session_user_id = parseInt(localStorage.getItem("rare_user_id"))
-    const sortedPosts = posts.sort((a, b) => a.publication_date > b.publication_date ? 1 : -1)
-    const { user_id } = useParams()
-=======
     const CurrentUserId = localStorage.getItem("userId")
     // console.log('userId: ', userId);
 
@@ -18,7 +13,6 @@ export const PostList = () => {
     console.log('sortedPosts: ', sortedPosts);
     const { userId } = useParams()
     console.log('userId: ', userId);
->>>>>>> main
     const history = useHistory()
 
     const [isLoading, setIsLoading] = useState(true)

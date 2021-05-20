@@ -6,6 +6,7 @@ import Logo from "./rare.jpeg"
 export const NavBar = () => {
     const history = useHistory()
     const userId = localStorage.getItem("userId")
+    const isStaff = localStorage.getItem("isStaff") === "true"
 
     return (
         <ul className="navbar">
@@ -30,6 +31,13 @@ export const NavBar = () => {
             <li className="navbar__item">
                 <Link className="navbar__link" to="/categories">Category MGMT</Link>
             </li>
+            {
+                isStaff
+                ?   <li className="navbar__item">
+                        <Link className="navbar__link" to="/reactions">Reaction MGMT</Link>
+                    </li>
+                :   <></>
+            }   
             <li className="navbar__item">
                 <Link className="navbar__link" to="/">User Profiles</Link>
             </li>
