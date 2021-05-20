@@ -3,7 +3,7 @@ import React, { useState } from "react"
 export const ProfileContext = React.createContext()
 
 export const ProfileProvider = (props) => {
-    const [profile, setProfile] = useState({events:[]})
+    const [profile, setProfile] = useState({ events: [] })
     const [allProfiles, setAllProfiles] = useState([])
 
     const getProfile = () => {
@@ -21,8 +21,15 @@ export const ProfileProvider = (props) => {
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             }
         })
-        .then(response => response.json())
-        .then(setAllProfiles)
+            .then(response => response.json())
+            .then(response => {
+
+                if (response.includes("admin") && response.includes("false")) {
+                    setAllProfiles([])
+                } else {
+                    setAllProfiles(response)
+                }
+            })
     }
 
     return (

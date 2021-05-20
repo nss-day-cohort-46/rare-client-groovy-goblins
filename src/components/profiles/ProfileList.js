@@ -11,14 +11,18 @@ export const ProfileList = () => {
     }, [])
     return (
         <>
-        <h2>Hello there</h2>
+        <h2>User Profiles</h2>
         <div>
-            {allProfiles.map(profile => 
+            {allProfiles.length > 0 ? allProfiles.map(profile => 
                     <div key={profile.userName} className="profile_card">
                         <p>Name: {profile.first_name} {profile.last_name}</p>
                         <p>Username: {profile.username}</p>
                         <p>Admin: {profile.is_staff ? "Yes" : "No"}</p>
-                    </div>)}
+                    </div>
+                    )
+                    :
+                    <h3>Hmmm...Looks like there was a problem. Try refreshing or logging in to an Admin account.</h3>
+                }
         </div>
         </>
     )
