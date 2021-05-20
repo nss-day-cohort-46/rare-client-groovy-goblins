@@ -53,7 +53,6 @@ export const CategoryList = () => {
                 {filteredCats.map(c =>
                     <div className="category_card" key={c.id}>
                         <p><b>label: </b>{c.label}</p>
-                        {console.log(c.id)}
                         <button id={c.id} onClick={handleDeleteWarning}>Delete</button>
                     </div>
                 )}

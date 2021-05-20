@@ -30,7 +30,6 @@ export const TagForm = () => {
 
     useEffect(() => {
         if (tag_id > 0) {
-            console.log(`tag_id = ${tag_id}`)
             setIsLoading(false)
         } else {
             setIsLoading(false)

@@ -17,7 +17,6 @@ export const PostForm = () => {
       image_url: "",
       content: ""
     })
-    console.log('posts: ', posts);
 
 	  const history = useHistory();
     const postId = useParams();

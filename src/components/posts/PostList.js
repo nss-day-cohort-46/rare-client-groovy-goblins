@@ -8,7 +8,7 @@ export const PostList = () => {
     const session_user_id = parseInt(localStorage.getItem("rare_user_id"))
     const sortedPosts = posts.sort((a, b) => a.publication_date > b.publication_date ? 1 : -1)
     const CurrentUserId = localStorage.getItem("userId")
-
+    const isStaff = JSON.parse(localStorage.getItem("isStaff"))
     
     const { userId } = useParams()
 
@@ -37,7 +37,7 @@ export const PostList = () => {
 
     const approveButton = post => {
 
-        if (localStorage.isStaff) {
+        if (isStaff) {
 
             if (post.approved) {
                 return (

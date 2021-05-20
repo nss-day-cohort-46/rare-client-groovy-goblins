@@ -4,7 +4,6 @@ export const PostContext = React.createContext()
 
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([])
-    console.log('posts: ', posts);
 
     const getPosts = () => {
         return fetch("http://localhost:8000/posts", {
@@ -29,7 +28,6 @@ export const PostProvider = (props) => {
             .then(res => res.json())
             .then(data => {
                 setPosts(data)
-                console.log('data: ', data);
                 return data
             })
     }
