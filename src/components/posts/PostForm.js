@@ -7,21 +7,21 @@ import { CategoryContext } from "../category/CategoryProvider";
 export const PostForm = () => {
     const { addPost, editPost, getPosts, posts } = useContext(PostContext)
     const { categories, getCategories } = useContext(CategoryContext)
+    console.log('categories: ', categories);
     const session_user_id = parseInt(localStorage.getItem("rare_user_id"))
     
     
     const [post, setPost] = useState({
       user_id: session_user_id,
-      category_id: 0,  
+      category: 0,  
       title: "",
       image_url: "",
       content: ""
     })
-    console.log('posts: ', posts);
 
 	  const history = useHistory();
-    const postId = useParams();
-    const user_id = localStorage.getItem("rare_user_id")
+    const {postId} = useParams();
+    const userId = localStorage.getItem("userId")
 
     
     const handleControlledInputChange = (event) => {
@@ -38,40 +38,46 @@ export const PostForm = () => {
     const handleSavePost = () => {
     if (parseInt(post.category_id) === 0) {
       window.alert("Please select a category")
-    } if (postId.postId > 0) {
+    } if (postId > 0) {
           editPost({
-            id: postId.postId,
+            id: post.id,
             title: post.title,
             content: post.content,
-            category_id: parseInt(post.category_id),
-            image_url: post.image_url
+            categoryId: parseInt(post.category),
+            imageUrl: post.image_url
           })
-    .then(() => history.push(`/posts/user/${user_id}`)) //This link string might be different for posts. Hasn't been coded yet.
+    .then(() => history.push(`/posts/user/${userId}`)) //This link string might be different for posts. Hasn't been coded yet.
         } else {
           addPost({
-              user_id: post.user_id,
-              category_id: parseInt(post.category_id),
               title: post.title,
-              image_url: post.image_url,
-              content: post.content
+              content: post.content,
+              categoryId: parseInt(post.category),
+              imageUrl: post.image_url
           })
           .then(() => history.push("/posts")) //This link string might be different for posts. Hasn't been coded yet.
     }   
   }
-const urlId = postId.postId
+
 useEffect(() => {
   getCategories()
-  if (urlId) {
+  if (postId) {
   getPosts()
   .then(posts => { 
-    const postbyId = posts.find(p => p.id === parseInt(urlId))
-    setPost(postbyId)
+    const PostById = posts.find(p => p.id === parseInt(postId))
+    console.log('PostById: ', PostById);
+    setPost({
+      id: PostById.id,
+      title: PostById.title,
+      content: PostById.content,
+      image_url: PostById.image_url,
+      category: PostById.category.id  
+    })
   })}
 }, [])
     
     return (
       <form className="postForm">
-        <h2 className="postForm__title">{postId.postId > 0 ? "Edit a post" : "Make a post"}</h2>
+        <h2 className="postForm__title">{postId > 0 ? "Edit a post" : "Make a post"}</h2>
         <fieldset>
           <div className="form-group">
             <label htmlFor="postTitle">Title:</label>
@@ -101,8 +107,8 @@ useEffect(() => {
         </fieldset>
         <fieldset>
           <div className="form-group">
-            <label htmlFor="category">Category:</label>
-            <select value={post.category_id} id="category_id" className="form-control" onChange={handleControlledInputChange}>
+            <label htmlFor="categoryId">Category:</label>
+            <select value={post.category} id="category" className="form-control" onChange={handleControlledInputChange}>
               <option value="0">Select a Category</option>
               {categories.map(c => (
                 <option key={c.id} value={c.id}>
@@ -116,11 +122,11 @@ useEffect(() => {
           onClick={event => {
             event.preventDefault()
             handleSavePost()
-          }}>{postId.postId > 0 ? "Edit post" : "Make post"}</button>
-        {postId.postId > 0 ? <button className="btn btn-primary"
+          }}>{postId > 0 ? "Edit post" : "Make post"}</button>
+        {postId > 0 ? <button className="btn btn-primary"
           onClick={event => {
             event.preventDefault()
-            history.push(`/posts/user/${user_id}`)}}
+            history.push(`/posts/user/${userId}`)}}
           >Cancel</button> : "" }
       </form>
     )
