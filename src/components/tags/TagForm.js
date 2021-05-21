@@ -67,7 +67,7 @@ export const TagForm = () => {
                 </fieldset>
                 <button type="submit"
                     disabled={isLoading}>
-                    { categoryId ? "Update" : "Save" }
+                    { tagId ? "Update" : "Save" }
                 </button>
             </form>
         </>
