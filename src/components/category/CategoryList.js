@@ -59,7 +59,7 @@ export const CategoryList = () => {
                         { isStaff && <div>
                             <Link className="link--edit" to={`/categories/edit/${cat.id}`}>
                                 <button className="btn--edit" type="button">
-                                    Edit Tag
+                                    Edit Category
                                 </button>
                             </Link>
                             <button className="btn--delete" onClick={(e) => {
