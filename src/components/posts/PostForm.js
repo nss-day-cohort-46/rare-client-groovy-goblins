@@ -3,11 +3,12 @@ import { PostContext } from "./PostProvider"
 import "./Post.css"
 import { useHistory, useParams } from 'react-router-dom';
 import { CategoryContext } from "../category/CategoryProvider";
+import { TagContext } from "../tags/TagProvider";
 
 export const PostForm = () => {
     const { addPost, editPost, getPosts, posts } = useContext(PostContext)
     const { categories, getCategories } = useContext(CategoryContext)
-    console.log('categories: ', categories);
+    
     const session_user_id = parseInt(localStorage.getItem("rare_user_id"))
     
     
