@@ -4,8 +4,9 @@ import "./Category.css"
 import { Link } from "react-router-dom"
 
 export const CategoryList = () => {
-    const { categories, getCategories, deleteCategory } = useContext(CategoryContext)
+    const { categories, getCategories, deleteCategoryById } = useContext(CategoryContext)
      const loggedInUser = localStorage.getItem("rare_user_id")
+     const isStaff = JSON.parse(localStorage.getItem("isStaff"))
 
     const deleteWarning = useRef()
     const [deleteCat, setDeleteCat] = useState({
@@ -16,10 +17,13 @@ export const CategoryList = () => {
     useEffect(() => {
         getCategories()
     }, [])
+
     // const sortedCats = categories.sort((a, b) => a.label > b.label ? 1 : -1)
 
     // filter out "deleted" categories
     // const filteredCats = sortedCats.filter(cat => cat.deleted == 0)
+    
+    const deleteHanlder = ( indx ) => deleteCategoryById(indx)
 
     const handleDeleteWarning = event => {
         deleteWarning.current.showModal()
@@ -35,13 +39,11 @@ export const CategoryList = () => {
     }
 
     const handleClickDelete = () => {
-        deleteCategory(deleteCat.id)
+        deleteCategoryById(deleteCat.id)
         handleCloseModal()
     }
 
-    // So we wouldn't have to worry about missing ?'s in the return component
-    // and avoid the "cannot find label of undefined" error.
-    if(!Array.isArray(categories)) return (<div>Please Log In to View</div>)
+    // if(!Array.isArray(categories)) return (<div>Loading Categories</div>)
 
     return (
         loggedInUser && Array.isArray(categories)
@@ -51,13 +53,26 @@ export const CategoryList = () => {
 
             <ul className="category_list">
             {
-                categories.map((cat, i) => {
-                    return <li key={i} className="category_list--item ">{ cat.label }</li>
+                categories.map((cat) => {
+                    return <li key={ cat.id } className="category_list--item">
+                        <div className="cat_label">{ cat.label }</div>
+                        { isStaff && <div>
+                            <button className="btn--delete" onClick={(e) => {
+                                e.preventDefault()
+                                deleteHanlder(cat.id)
+                            }}>Delete</button>
+                        </div> }
+                    </li>
                 })
             }
             </ul>
+            <Link to="/categories/create">
+                <button className="createTag" type="button">
+                Create Category
+                </button>
+            </Link>
 
-            <div>
+            {/* <div>
                 <dialog className="dialog dialog--auth" ref={deleteWarning}>
                     <div>Are you sure you want to delete the category "{deleteCat.label}"?</div>
                     <button className="button--close" onClick={handleCloseModal}>Cancel</button>
@@ -69,14 +84,9 @@ export const CategoryList = () => {
                         {console.log(c.id)}
                         <button id={c.id} onClick={handleDeleteWarning}>Delete</button>
                     </div>
-                )} */}
-            </div>
+                )}
+            </div> */}
 
-            <Link to="/categories/create">
-                <button className="createTag" type="button">
-                Create Category
-                </button>
-            </Link>
             <div>(=ↀωↀ=)✧</div>
         </>
         :

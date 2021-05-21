@@ -13,6 +13,9 @@ import { PostDetail } from "./posts/PostDetail"
 import { ProfileList } from "./profiles/ProfileList"
 import { ProfileProvider } from "./profiles/ProfileProvider"
 import { Profile } from "./profiles/Profile"
+import { CommentProvider } from "./comment/CommentProvider"
+import { CommentList } from "./comment/CommentList"
+import { ReactionProvider } from "./reaction/ReactionProvider"
 
 export const ApplicationViews = () => {
     return <>
@@ -47,17 +50,23 @@ export const ApplicationViews = () => {
                     }} />
                 </CategoryProvider>
             </PostProvider>
-
+            
+            <ReactionProvider>
             <PostProvider>
                 <Route exact path="/posts/detail/:postId(\d+)">
                     <PostDetail />
                 </Route>
             </PostProvider>
+            </ReactionProvider>
+
             <TagProvider>
                 <Route exact path="/tags">
                     <TagList />
                 </Route>
                 <Route exact path="/tags/create">
+                    <TagForm />
+                </Route>
+                <Route exact path="/tags/edit/:tagId(\d+)">
                     <TagForm />
                 </Route>
             </TagProvider>
@@ -70,6 +79,12 @@ export const ApplicationViews = () => {
                     <Profile />
                 </Route>
             </ProfileProvider>
+            
+            <CommentProvider>
+                <Route exact path="/posts/comments/:postId(\d+)">
+                    <CommentList />
+                </Route>
+            </CommentProvider>
         </main>
     </>
 }
