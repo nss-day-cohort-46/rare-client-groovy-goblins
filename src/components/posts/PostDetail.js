@@ -38,9 +38,21 @@ export const PostDetail = () => {
                     }
                 }
                 setReactions(newReactions)
+            } else if(res.statusText === "No Content"){
+                removeReaction({
+                    postId: parseInt(postId),
+                    reactionId: parseInt(reactionId)
+                })
+                let newReactions = [...reactions]
+                for(const reaction of newReactions){
+                    if(parseInt(reactionId) === reaction.id){
+                        reaction.counter--
+                    }
+                }
+                setReactions(newReactions)
             }
+            setIsLoading(false)
         })
-        setIsLoading(false)
     }
       
     useEffect(() => {
