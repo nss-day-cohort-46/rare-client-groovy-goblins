@@ -49,7 +49,7 @@ export const CategoryList = () => {
         loggedInUser && Array.isArray(categories)
         ?
         <>
-            <h2>Labels</h2>
+            <h2>Categories</h2>
 
             <ul className="category_list">
             {
