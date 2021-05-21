@@ -6,7 +6,7 @@ import "./TagList.css"
 export const TagList = () => {
  const { tags, getTags, deleteTagById, editTagById } = useContext(TagContext)
  const loggedInUser = localStorage.getItem("rare_user_id")
- const isStaff = localStorage.getItem("isStaff") === "true"
+ const isStaff = JSON.parse(localStorage.getItem("isStaff"))
 
  useEffect(() => {
   getTags()
@@ -30,7 +30,7 @@ export const TagList = () => {
     loggedInUser && Array.isArray(tags)
     ?
       <>
-        <h2>Labels</h2>
+        <h2>Tags</h2>
 
         <ul className="tags_list">
           {
