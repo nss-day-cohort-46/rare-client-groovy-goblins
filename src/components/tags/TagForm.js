@@ -27,6 +27,8 @@ export const TagForm = () => {
 
     const handleSaveTag = (event) => {
         event.preventDefault()
+
+        const tag = { ...tag }
         
         if(tagId) {
             editTagById(tag)
@@ -65,7 +67,7 @@ export const TagForm = () => {
                 </fieldset>
                 <button type="submit"
                     disabled={isLoading}>
-                    Save Tag
+                    { tagId ? "Update" : "Save" }
                 </button>
             </form>
         </>
