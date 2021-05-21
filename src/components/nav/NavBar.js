@@ -6,8 +6,10 @@ import Logo from "./rare.jpeg"
 export const NavBar = () => {
     const history = useHistory()
     const userId = localStorage.getItem("userId")
-    const isStaff = localStorage.getItem("isStaff") === "true"
+    const isStaff = JSON.parse(localStorage.getItem("isStaff"))
 
+    console.log(isStaff)
+    console.log(true)
     return (
         <ul className="navbar">
             <li className="navbar__item">
@@ -33,30 +35,35 @@ export const NavBar = () => {
             </li>
             {
                 isStaff
-                ?   <li className="navbar__item">
+                    ? <li className="navbar__item">
                         <Link className="navbar__link" to="/reactions">Reaction MGMT</Link>
                     </li>
-                :   <></>
-            }   
-            <li className="navbar__item">
-                <Link className="navbar__link" to="/">User Profiles</Link>
-            </li>
+                    : <></>
+            }
+            {
+                isStaff ? <li className="navbar__item">
+                    <Link className="navbar__link" to="/profiles">User Profiles</Link>
+                </li>
+                    : <></>
+            }
             {
                 (localStorage.getItem("rare_user_id") !== null) ?
                     <li className="nav-item">
                         <button className="nav-link fakeLink"
                             onClick={() => {
                                 localStorage.removeItem("rare_user_id")
-                                // history.push({ pathname: "/" })
+                                localStorage.removeItem("isStaff")
+                                localStorage.removeItem("userId")
+                                history.push({ pathname: "/" })
                             }}
                         ><Link className="navbar__link" to="/">Logout</Link></button>
                     </li> :
                     <li className="nav-item">
-                    <button className="nav-link fakeLink"
-                    ><Link className="navbar__link" to="/login">Login/Register</Link></button>
-                    </li> 
-                    
-            }         
+                        <button className="nav-link fakeLink"
+                        ><Link className="navbar__link" to="/login">Login/Register</Link></button>
+                    </li>
+
+            }
         </ul>
     )
 }

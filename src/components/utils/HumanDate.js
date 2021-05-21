@@ -1,5 +1,5 @@
-export const HumanDate = ({ date }) => {
-    return new Date(date.replace(/-/g, '\/')).toLocaleDateString("en-US",
+export const HumanDate = date => {
+    return new Date(date).toLocaleDateString("en-US",
     {
         weekday: 'long',
         year: 'numeric',

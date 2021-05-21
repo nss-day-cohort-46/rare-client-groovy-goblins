@@ -78,6 +78,7 @@ export const PostDetail = () => {
             setIsLoading(false)
         })
     }, [])
+    
         
     return (
         <>
@@ -92,7 +93,7 @@ export const PostDetail = () => {
                 }
                 <div className="post__content">{post.content}</div>
                 <div className="post__created_on">{new Date(post.publication_date).toLocaleDateString()}</div>
-                <div className="post__author__first_name">{post.user?.first_name} {post.user?.last_name}</div>
+                <div className="post__author__first_name"><Link to={`/profiles/${post.user?.id}/detail`}>{post.user?.first_name} {post.user?.last_name}</Link></div>
             </section>
         </>
     )

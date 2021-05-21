@@ -10,6 +10,9 @@ import { CategoryProvider } from "./category/CategoryProvider"
 import { CategoryForm } from "./category/CategoryForm"
 import { PostForm } from "./posts/PostForm"
 import { PostDetail } from "./posts/PostDetail"
+import { ProfileList } from "./profiles/ProfileList"
+import { ProfileProvider } from "./profiles/ProfileProvider"
+import { Profile } from "./profiles/Profile"
 import { CommentProvider } from "./comment/CommentProvider"
 import { CommentList } from "./comment/CommentList"
 import { ReactionProvider } from "./reaction/ReactionProvider"
@@ -71,6 +74,16 @@ export const ApplicationViews = () => {
                     <TagForm />
                 </Route>
             </TagProvider>
+
+            <ProfileProvider>
+                <Route exact path="/profiles">
+                    <ProfileList />
+                </Route>
+                <Route path="/profiles/:userId(\d+)/detail">
+                    <Profile />
+                </Route>
+            </ProfileProvider>
+            
             <PostProvider>
             <CommentProvider>
                 <Route exact path="/posts/comments/:postId(\d+)">

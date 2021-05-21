@@ -77,7 +77,7 @@ export const PostList = () => {
             {sortedPosts.map(post =>
                 <div className="post_card" key={post.id}>
                     <p><b>Title: </b><Link to={`/posts/detail/${post.id}`}> {post.title}</Link></p>
-                    <p><b>Author: </b>{post.user.first_name} {post.user.last_name}</p>
+                    <p><b>Author: </b><Link to={`profiles/${post.user.id}/detail`}>{post.user.first_name} {post.user.last_name}</Link></p>
                     <p><b>Category: </b>{post.category.label}</p>
                     {/* <p><b>Posted: </b>{post.publication_date}</p>
                     <p><b>user id: </b>{post.user.id}</p> */}
