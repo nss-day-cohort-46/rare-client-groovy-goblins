@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router"
 import { CommentContext } from "./CommentProvider"
+import "./Comment.css"
 
 export const CommentList = () => {
     const {getComments, comments, createComment, deleteComment, getCommentById, editComment} = useContext(CommentContext)
