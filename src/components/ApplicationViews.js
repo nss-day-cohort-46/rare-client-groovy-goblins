@@ -71,12 +71,13 @@ export const ApplicationViews = () => {
                     <TagForm />
                 </Route>
             </TagProvider>
-
+            <PostProvider>
             <CommentProvider>
                 <Route exact path="/posts/comments/:postId(\d+)">
                     <CommentList />
                 </Route>
             </CommentProvider>
+            </PostProvider>
 
             <ReactionProvider>
                 <Route exact path="/reactions">
