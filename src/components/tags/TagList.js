@@ -6,7 +6,7 @@ import "./TagList.css"
 export const TagList = () => {
  const { tags, getTags, deleteTagById, editTagById } = useContext(TagContext)
  const loggedInUser = localStorage.getItem("rare_user_id")
- const isStaff = localStorage.getItem("isStaff") === "true"
+ const isStaff = JSON.parse(localStorage.getItem("isStaff"))
 
  useEffect(() => {
   getTags()

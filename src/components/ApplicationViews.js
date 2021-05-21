@@ -42,6 +42,9 @@ export const ApplicationViews = () => {
                 <Route exact path="/categories/create" render={() => {
                     return <CategoryForm />
                 }}/>
+                <Route exact path="/categories/edit/:categoryId(\d+)">
+                    <CategoryForm />
+                </Route>
             </CategoryProvider>
             </PostProvider>
 

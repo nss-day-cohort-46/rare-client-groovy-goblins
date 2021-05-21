@@ -27,6 +27,8 @@ export const TagForm = () => {
 
     const handleSaveTag = (event) => {
         event.preventDefault()
+
+        const tag = { ...tag }
         
         if(tagId) {
             editTagById(tag)
