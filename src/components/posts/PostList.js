@@ -4,17 +4,18 @@ import { Link, useHistory, useParams } from "react-router-dom"
 import "./Post.css"
 
 export const PostList = () => {
-    const { posts, getPosts, getPostsByUserId, deletePost } = useContext(PostContext)
-    const sortedPosts = posts?.sort((a, b) => a.publication_date > b.publication_date ? -1 : 1)
-    console.log('posts: ', posts);
+    const { posts, getPosts, getPostsByUserId, deletePost, approvePost } = useContext(PostContext)
+    const session_user_id = parseInt(localStorage.getItem("rare_user_id"))
+    const sortedPosts = posts.sort((a, b) => a.publication_date > b.publication_date ? 1 : -1)
     const CurrentUserId = localStorage.getItem("userId")
-    // console.log('userId: ', userId);
-
-    const { userId } = useParams()
-    console.log('userId: ', userId);
-    const history = useHistory()
+    const isStaff = JSON.parse(localStorage.getItem("isStaff"))
     
+    const { userId } = useParams()
+    const history = useHistory()
     const [isLoading, setIsLoading] = useState(true)
+
+
+    
 
     
     
@@ -41,9 +42,33 @@ export const PostList = () => {
             .then(() => history.push(`/posts/user/${userId}`))
         }
     }
+
+    const approveButton = post => {
+
+        if (isStaff) {
+
+            if (post.approved) {
+                return (
+                    <button type="button" key={`unApprove--${post.id}`} onClick={(e) => {
+                        e.preventDefault()
+                    }}>Un-Approve</button>
+                )
+            } else {
+                return (
+                    <button type="button" key={`approve--${post.id}`} onClick={(e) => {
+                        e.preventDefault()
+                        approvePost(post)
+                    }}>Approve</button>
+                )
+            }
+
+        }
+    }
+
+
     // So we wouldn't have to worry about missing ?'s in the return component
     // and avoid the "cannot find label of undefined" error.
-    if(isLoading) return (<div>Loading</div>)
+    if (isLoading) return (<div>Loading</div>)
 
     
     return (<>
@@ -57,6 +82,25 @@ export const PostList = () => {
                     {/* <p><b>Posted: </b>{post.publication_date}</p>
                     <p><b>user id: </b>{post.user.id}</p> */}
 
+                    {
+                        session_user_id === post.user_id
+                            ? <button >
+                                <Link to={{
+                                    pathname: `/posts/user/edit/${post.id}`
+                                }}>edit</Link>
+                            </button>
+                            : ""
+                    }
+                    {
+                        session_user_id === post.user_id
+                            ?
+                            <button type="button" id="deletePost" onClick={(e) => {
+                                e.preventDefault()
+                                handleDelete(post.id)
+                            }}>Delete</button>
+                            : <></>
+                    }
+                        {approveButton(post)}
                     {
                         parseInt(CurrentUserId)  === post.user.id
                         ? <button >
