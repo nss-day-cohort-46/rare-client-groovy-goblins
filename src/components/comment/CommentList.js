@@ -1,13 +1,16 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router"
+import { PostContext } from "../posts/PostProvider"
 import { CommentContext } from "./CommentProvider"
 import "./Comment.css"
 
 export const CommentList = () => {
     const {getComments, comments, createComment, deleteComment, getCommentById, editComment} = useContext(CommentContext)
+    const {getPostById} = useContext(PostContext)
     const {postId} = useParams()
     const userId = parseInt(localStorage.getItem("userId"))
     const [isLoading, setIsLoading] = useState(true)
+    const [post, setPost] = useState({})
 
     let d = new Date();
     d = new Date(d.getTime() - 3000000);
@@ -29,21 +32,21 @@ export const CommentList = () => {
         setIsLoading(true)
         if(comment.id){
             return editComment(comment)
+            .then(getComments(parseInt(postId)))
             .then(setComment({
                 postId: parseInt(postId),
                 content: "",
                 createdOn: date_format_str
             }))
-            .then(getComments(parseInt(postId)))
             .then(setIsLoading(false))
         } else{
             return createComment(comment)
+            .then(getComments(parseInt(postId)))
             .then(setComment({
                 postId: parseInt(postId),
                 content: "",
                 createdOn: date_format_str
             }))
-            .then(getComments(parseInt(postId)))
             .then(setIsLoading(false))
         }
     }
@@ -73,35 +76,39 @@ export const CommentList = () => {
 
     useEffect(() => {
         getComments(postId)
-        .then(setIsLoading(false))
+        getPostById(postId)
+        .then(setPost)
+        setIsLoading(false)
     }, [])
 
     return(
         <>
-        <section className="commentForm">
-            <label htmlFor="commentForm__content">Comment: </label>
-            <input type="text" onChange={handleInputChange} id="content" value={comment.content} autoFocus required></input>
-            <button disabled={isLoading} onClick={handleSubmitClick}>Submit</button>
-        </section>
-        <section className="commentList">
-            {comments?.map(comment=>{
-                return <div className="commentCard" key={comment.id}>
-                    <div className="commentCard__author">Author: {comment.author}</div>
-                    <div className="commentCard__date">Date: {comment.created_on}</div>
-                    <div className="commentCard__content">{comment.content}</div>
-                    {
-                        comment.author === userId 
-                        ? <button id={`delete--${comment.id}`} onClick={handleDeleteClick}>Delete</button>
-                        : <></>
-                    }
-                    {
-                        comment.author === userId 
-                        ? <button id={`edit--${comment.id}`} onClick={handleEditClick}>Edit</button>
-                        : <></>
-                    }
-                </div>
-            })}
-        </section>
+        <div className="container">
+            <h3 className="commentTitle">{post.title}'s Comments</h3>
+            <section className="commentForm">
+                <textarea onChange={handleInputChange} id="content" value={comment.content} placeholder="Type your comment here..." autoFocus required rows="5" cols="30"></textarea><br />
+                <button disabled={isLoading} onClick={handleSubmitClick} className="commentForm__submit">Submit</button>
+            </section>
+            <section className="commentList">
+            {
+                comments?.map(comment=>{
+                    return <div className="commentCard" key={comment.id}>
+                        <div className="commentCard__content">{comment.content}</div>
+                        <div className="commentCard__author">- {comment.author.username}</div>
+                        {
+                            comment.author === userId 
+                            ? <button id={`delete--${comment.id}`} onClick={handleDeleteClick}>Delete</button>
+                            : <></>
+                        }
+                        {
+                            comment.author === userId 
+                            ? <button id={`edit--${comment.id}`} onClick={handleEditClick}>Edit</button>
+                            : <></>
+                        }
+                    </div>
+                })}
+            </section>
+        </div>
         </>
     )
 }

@@ -13,7 +13,10 @@ export const CommentProvider = (props) => {
         })
         .then(res=>res.json())
         .then(res=>res.reverse())
-        .then(setComments)
+        .then(res => {
+            setComments(res)
+            return res
+        })
     }
 
     const getCommentById = (commentId) => {
