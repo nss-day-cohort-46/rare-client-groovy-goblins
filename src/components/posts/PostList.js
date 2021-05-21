@@ -9,37 +9,37 @@ export const PostList = () => {
     const sortedPosts = posts.sort((a, b) => a.publication_date > b.publication_date ? 1 : -1)
     const CurrentUserId = localStorage.getItem("userId")
     const isStaff = JSON.parse(localStorage.getItem("isStaff"))
-    
+
     const { userId } = useParams()
     const history = useHistory()
     const [isLoading, setIsLoading] = useState(true)
 
 
-    
 
-    
-    
+
+
+
     useEffect(() => {
-        
+
         if (userId) {
             if (userId !== CurrentUserId) {
                 setIsLoading(false)
             } else {
                 getPostsByUserId(userId)
-                .then(() => setIsLoading(false))
+                    .then(() => setIsLoading(false))
 
             }
         } else {
             getPosts()
-            .then(() => setIsLoading(false))
+                .then(() => setIsLoading(false))
         }
     }, [])
-    
-    const handleDelete = ( id ) => {
-        
-        if(window.confirm("Confirm Deletion")) {
+
+    const handleDelete = (id) => {
+
+        if (window.confirm("Confirm Deletion")) {
             deletePost(id, userId)
-            .then(() => history.push(`/posts/user/${userId}`))
+                .then(() => history.push(`/posts/user/${userId}`))
         }
     }
 
@@ -47,18 +47,14 @@ export const PostList = () => {
 
         if (isStaff) {
 
-            if (post.approved) {
-                return (
-                    <button type="button" key={`unApprove--${post.id}`} onClick={(e) => {
-                        e.preventDefault()
-                    }}>Un-Approve</button>
-                )
-            } else {
+            {
                 return (
                     <button type="button" key={`approve--${post.id}`} onClick={(e) => {
                         e.preventDefault()
                         approvePost(post)
-                    }}>Approve</button>
+                    }}> 
+                    {post.approved ? "Un-approve" : "Approve"}
+                    </button>
                 )
             }
 
@@ -70,9 +66,9 @@ export const PostList = () => {
     // and avoid the "cannot find label of undefined" error.
     if (isLoading) return (<div>Loading</div>)
 
-    
+
     return (<>
-        
+
         <div>
             {sortedPosts.map(post =>
                 <div className="post_card" key={post.id}>
@@ -100,28 +96,29 @@ export const PostList = () => {
                             }}>Delete</button>
                             : <></>
                     }
-                        {approveButton(post)}
+                    {approveButton(post)}
                     {
-                        parseInt(CurrentUserId)  === post.user.id
-                        ? <button >
-                            <Link to={{ pathname: `/posts/user/edit/${post.id}`
-                            }}>edit</Link>
-                        </button> 
-                        : ""
+                        parseInt(CurrentUserId) === post.user.id
+                            ? <button >
+                                <Link to={{
+                                    pathname: `/posts/user/edit/${post.id}`
+                                }}>edit</Link>
+                            </button>
+                            : ""
                     }
                     {
-                        parseInt(CurrentUserId)  === post.user.id 
-                        ?
-                        <button type="button" id="deletePost" onClick={(e) => {
-                            e.preventDefault()
-                            handleDelete(post.id)
-                        }}>Delete</button>
-                        : <></>
+                        parseInt(CurrentUserId) === post.user.id
+                            ?
+                            <button type="button" id="deletePost" onClick={(e) => {
+                                e.preventDefault()
+                                handleDelete(post.id)
+                            }}>Delete</button>
+                            : <></>
                     }
                 </div>
             )}
         </div>
-        
+
     </>)
 }
 
