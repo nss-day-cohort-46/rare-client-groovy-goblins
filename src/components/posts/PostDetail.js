@@ -67,22 +67,21 @@ export const PostDetail = () => {
         })
     }, [])
         
-        // const newObj = {
-        //   image: post.image_url
-        // }
     return (
-        <section className="post">
-        <h3 className="post__title">{post.title}</h3>
-        <img className="post__image" src={post.image_url} alt="" />
-        <button><Link to={`/posts/comments/${post.id}`}>View Comments</Link></button>
-        {
-            reactions.map(reaction=>{
-                return <button key={reaction.id} id={`reaction--${reaction.id}`} onClick={handleReactionClick} disabled={isLoading} ><img src={reaction.image_url} alt={reaction.label} style={{pointerEvents:"None"}} width="20vh" height="20vh" /> {reaction.counter}</button>
-            })
-        }
-        <div className="post__content">{post.content}</div>
-        <div className="post__created_on">{new Date(post.publication_date).toLocaleDateString()}</div>
-        <div className="post__author__first_name">{post.user?.first_name} {post.user?.last_name}</div>
-        </section>
+        <>
+            <section className="post">
+                <h3 className="post__title">{post.title}</h3>
+                <img className="post__image" src={post.image_url} alt="" />
+                <button><Link to={`/posts/comments/${post.id}`}>View Comments</Link></button>
+                {
+                    reactions.map(reaction=>{
+                        return <button key={reaction.id} id={`reaction--${reaction.id}`} onClick={handleReactionClick} disabled={isLoading} ><img src={reaction.image_url} alt={reaction.label} style={{pointerEvents:"None"}} width="20vh" height="20vh" /> {reaction.counter}</button>
+                    })
+                }
+                <div className="post__content">{post.content}</div>
+                <div className="post__created_on">{new Date(post.publication_date).toLocaleDateString()}</div>
+                <div className="post__author__first_name">{post.user?.first_name} {post.user?.last_name}</div>
+            </section>
+        </>
     )
 }
