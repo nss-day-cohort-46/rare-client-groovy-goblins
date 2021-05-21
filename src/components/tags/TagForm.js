@@ -3,15 +3,18 @@ import { useHistory, useParams } from "react-router-dom"
 import { TagContext } from "./TagProvider"
 
 export const TagForm = () => {
-    const { addTag } = useContext(TagContext)
+    const { addTag, getTagById, editTagById } = useContext(TagContext)
 
     const [tag, setTag] = useState({
+        id: 0,
         label: ""
     })
 
     const history = useHistory()
-    const tag_id = useParams()
+    const { tagId }  = useParams()
     const [isLoading, setIsLoading] = useState(true)
+
+
 
     const handleControlledInputChange = (event) => {
         const newTag = { ...tag }
@@ -24,12 +27,21 @@ export const TagForm = () => {
 
     const handleSaveTag = (event) => {
         event.preventDefault()
-        addTag(tag)
-        .then(history.push("/tags"))
+        
+        if(tagId) {
+            editTagById(tag)
+                .then(history.push("/tags"))
+        } else {
+            addTag(tag)
+                .then(history.push("/tags"))
+
+        }
     }
 
     useEffect(() => {
-        if (tag_id > 0) {
+        if (tagId) {
+
+            const tag = getTagById(tagId).then(setTag)
             setIsLoading(false)
         } else {
             setIsLoading(false)
@@ -39,11 +51,16 @@ export const TagForm = () => {
     return (
         <>
             <form onSubmit={handleSaveTag}>
-                <h2>Add Tag</h2>
+                { tagId ? <h2>Edit Tag</h2> : <h2>Add Tag</h2> }
+                { tagId ? <div>{ tag.label }</div> : <></> }
                 <fieldset>
                     <div>
-                        <label htmlFor="label">New Tag: </label>
-                        <input type="text" id="label" onChange={handleControlledInputChange} required autoFocus placeholder="New Tag" value={tag.label} />
+                        <label htmlFor="label">{ tagId ? "Edit" : "New" } Tag: </label>
+                        <input type="text" id="label" onChange={handleControlledInputChange} 
+                            required 
+                            autoFocus 
+                            value={tag.label} 
+                            placeholder={ tagId ? "Edit Tag" : "New Tag" }/>
                     </div>
                 </fieldset>
                 <button type="submit"

@@ -11,27 +11,35 @@ export const PostList = () => {
     const isStaff = JSON.parse(localStorage.getItem("isStaff"))
     
     const { userId } = useParams()
-
     const history = useHistory()
-
     const [isLoading, setIsLoading] = useState(true)
 
 
+    
+
+    
+    
     useEffect(() => {
-        if (userId > 0) {
-            getPostsByUserId(userId)
-            .then(() => setIsLoading(false))
+        
+        if (userId) {
+            if (userId !== CurrentUserId) {
+                setIsLoading(false)
+            } else {
+                getPostsByUserId(userId)
+                .then(() => setIsLoading(false))
+
+            }
         } else {
             getPosts()
             .then(() => setIsLoading(false))
         }
     }, [])
-
+    
     const handleDelete = ( id ) => {
         
         if(window.confirm("Confirm Deletion")) {
             deletePost(id, userId)
-                .then(() => history.push(`/posts/user/${userId}`))
+            .then(() => history.push(`/posts/user/${userId}`))
         }
     }
 
@@ -62,8 +70,9 @@ export const PostList = () => {
     // and avoid the "cannot find label of undefined" error.
     if (isLoading) return (<div>Loading</div>)
 
+    
     return (<>
-
+        
         <div>
             {sortedPosts.map(post =>
                 <div className="post_card" key={post.id}>
@@ -112,6 +121,7 @@ export const PostList = () => {
                 </div>
             )}
         </div>
+        
     </>)
 }
 
