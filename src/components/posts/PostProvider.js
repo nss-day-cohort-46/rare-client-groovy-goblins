@@ -15,7 +15,7 @@ export const PostProvider = (props) => {
             .then(data => {
                 setPosts(data)
                 return data
-                
+
             })
     }
 
@@ -25,15 +25,14 @@ export const PostProvider = (props) => {
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            setPosts(data)
-            console.log('data: ', data);
+            .then(res => res.json())
+            .then(data => {
+                setPosts(data)
                 return data
             })
     }
 
-    const deletePost = ( id, userId ) => {
+    const deletePost = (id, userId) => {
         return fetch(`http://localhost:8000/posts/${id}`, {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
@@ -51,14 +50,14 @@ export const PostProvider = (props) => {
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
             body: JSON.stringify(post)
-            })
-            .then(getPosts)    
+        })
+            .then(getPosts)
     }
-    
+
     const addPost = postObj => {
         return fetch("http://localhost:8000/posts", {
             method: "POST",
-                headers: {
+            headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
@@ -77,9 +76,22 @@ export const PostProvider = (props) => {
             .then(res => res.json())
     }
 
+    const approvePost = post => {
+        return fetch(`http://localhost:8000/posts/${post.id}/approve`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+            },
+            body: JSON.stringify(post)
+        })
+            .then(getPosts)
+    }
+
+
     return (
         <PostContext.Provider value={{
-            posts, getPosts, getPostsByUserId, addPost, editPost, getPostById, deletePost
+            posts, getPosts, getPostsByUserId, addPost, editPost, getPostById, deletePost, approvePost
         }}>
             {props.children}
         </PostContext.Provider>
