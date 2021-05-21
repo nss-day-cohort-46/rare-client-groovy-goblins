@@ -30,7 +30,7 @@ export const TagList = () => {
     loggedInUser && Array.isArray(tags)
     ?
       <>
-        <h2>Labels</h2>
+        <h2>Tags</h2>
 
         <ul className="tags_list">
           {
