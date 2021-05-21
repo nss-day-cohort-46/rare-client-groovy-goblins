@@ -4,7 +4,6 @@ export const PostContext = React.createContext()
 
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([])
-    console.log('posts: ', posts);
 
     const getPosts = () => {
         return fetch("http://localhost:8000/posts", {
@@ -18,12 +17,12 @@ export const PostProvider = (props) => {
                 return data
                 
             })
-        }
-        
-        const getPostsByUserId = user_id => {
-            return fetch(`http://localhost:8000/posts?user_id=${user_id}`,  {
-                headers: {
-                    "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+    }
+
+    const getPostsByUserId = user_id => {
+        return fetch(`http://localhost:8000/posts?user_id=${user_id}`,  {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             }
         })
         .then(res => res.json())
