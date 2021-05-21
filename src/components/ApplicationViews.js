@@ -84,11 +84,13 @@ export const ApplicationViews = () => {
                 </Route>
             </ProfileProvider>
             
+            <PostProvider>
             <CommentProvider>
                 <Route exact path="/posts/comments/:postId(\d+)">
                     <CommentList />
                 </Route>
             </CommentProvider>
+            </PostProvider>
 
             <ReactionProvider>
                 <Route exact path="/reactions">
