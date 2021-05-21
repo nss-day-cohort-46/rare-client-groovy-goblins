@@ -36,20 +36,23 @@ export const ApplicationViews = () => {
             </PostProvider>
 
             <PostProvider>
-                <CategoryProvider>
-                    <Route exact path="/categories">
-                        <CategoryList />
-                    </Route>
-                    <Route exact path="/posting">
-                        <PostForm />
-                    </Route>
-                    <Route exact path="/posts/user/edit/:postId(\d+)">
-                        <PostForm />
-                    </Route>
-                    <Route exact path="/categories/create" render={() => {
-                        return <CategoryForm />
-                    }} />
-                </CategoryProvider>
+            <CategoryProvider>
+                <Route exact path="/categories">
+                    <CategoryList />
+                </Route>
+                <Route exact path="/posting">
+                    <PostForm />
+                </Route>
+                <Route exact path="/posts/user/edit/:postId(\d+)">
+                    <PostForm />
+                </Route>
+                <Route exact path="/categories/create" render={() => {
+                    return <CategoryForm />
+                }}/>
+                <Route exact path="/categories/edit/:categoryId(\d+)">
+                    <CategoryForm />
+                </Route>
+            </CategoryProvider>
             </PostProvider>
             
             <ReactionProvider>

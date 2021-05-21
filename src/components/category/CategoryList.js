@@ -4,7 +4,7 @@ import "./Category.css"
 import { Link } from "react-router-dom"
 
 export const CategoryList = () => {
-    const { categories, getCategories, deleteCategoryById } = useContext(CategoryContext)
+    const { categories, getCategories, deleteCategoryById, getCategoryById } = useContext(CategoryContext)
      const loggedInUser = localStorage.getItem("rare_user_id")
      const isStaff = JSON.parse(localStorage.getItem("isStaff"))
 
@@ -43,13 +43,13 @@ export const CategoryList = () => {
         handleCloseModal()
     }
 
-    // if(!Array.isArray(categories)) return (<div>Loading Categories</div>)
+    if(!Array.isArray(categories)) return (<div>Please Log In to View</div>)
 
     return (
         loggedInUser && Array.isArray(categories)
         ?
         <>
-            <h2>Labels</h2>
+            <h2>Categories</h2>
 
             <ul className="category_list">
             {
@@ -57,6 +57,11 @@ export const CategoryList = () => {
                     return <li key={ cat.id } className="category_list--item">
                         <div className="cat_label">{ cat.label }</div>
                         { isStaff && <div>
+                            <Link className="link--edit" to={`/categories/edit/${cat.id}`}>
+                                <button className="btn--edit" type="button">
+                                    Edit Category
+                                </button>
+                            </Link>
                             <button className="btn--delete" onClick={(e) => {
                                 e.preventDefault()
                                 deleteHanlder(cat.id)
