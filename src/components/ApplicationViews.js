@@ -2,13 +2,21 @@ import React from "react"
 import { Route } from "react-router-dom"
 import { PostProvider } from "./posts/PostProvider"
 import { PostList } from "./posts/PostList"
-import { TagProvider } from "./tags/TagProvider"
 import { TagForm } from "./tags/TagForm"
+import { TagList } from "./tags/TagList"
+import { TagProvider } from "./tags/TagProvider"
 import { CategoryList } from "./category/CategoryList"
 import { CategoryProvider } from "./category/CategoryProvider"
 import { CategoryForm } from "./category/CategoryForm"
 import { PostForm } from "./posts/PostForm"
 import { PostDetail } from "./posts/PostDetail"
+import { ProfileList } from "./profiles/ProfileList"
+import { ProfileProvider } from "./profiles/ProfileProvider"
+import { Profile } from "./profiles/Profile"
+import { CommentProvider } from "./comment/CommentProvider"
+import { CommentList } from "./comment/CommentList"
+import { ReactionProvider } from "./reaction/ReactionProvider"
+import { ReactionList } from "./reaction/ReactionList"
 
 export const ApplicationViews = () => {
     return <>
@@ -22,7 +30,7 @@ export const ApplicationViews = () => {
                 <Route exact path="/posts">
                     <PostList />
                 </Route>
-                <Route exact path="/posts/user/:user_id(\d+)">
+                <Route exact path="/posts/user/:userId(\d+)">
                     <PostList />
                 </Route>
             </PostProvider>
@@ -41,24 +49,56 @@ export const ApplicationViews = () => {
                 <Route exact path="/categories/create" render={() => {
                     return <CategoryForm />
                 }}/>
+                <Route exact path="/categories/edit/:categoryId(\d+)">
+                    <CategoryForm />
+                </Route>
             </CategoryProvider>
             </PostProvider>
-
+            
+            <ReactionProvider>
             <PostProvider>
+                <TagProvider>
                 <Route exact path="/posts/detail/:postId(\d+)">
                     <PostDetail />
                 </Route>
+                </TagProvider>
             </PostProvider>
+            </ReactionProvider>
+
             <TagProvider>
-                <Route path="/tags/create">
+                <Route exact path="/tags">
+                    <TagList />
+                </Route>
+                <Route exact path="/tags/create">
+                    <TagForm />
+                </Route>
+                <Route exact path="/tags/edit/:tagId(\d+)">
                     <TagForm />
                 </Route>
             </TagProvider>
-            <TagProvider>
-                <Route path="/tags/create">
-                    <TagForm />
+
+            <ProfileProvider>
+                <Route exact path="/profiles">
+                    <ProfileList />
                 </Route>
-            </TagProvider>
+                <Route path="/profiles/:userId(\d+)/detail">
+                    <Profile />
+                </Route>
+            </ProfileProvider>
+            
+            <PostProvider>
+            <CommentProvider>
+                <Route exact path="/posts/comments/:postId(\d+)">
+                    <CommentList />
+                </Route>
+            </CommentProvider>
+            </PostProvider>
+
+            <ReactionProvider>
+                <Route exact path="/reactions">
+                    <ReactionList />
+                </Route>
+            </ReactionProvider>
         </main>
     </>
 }

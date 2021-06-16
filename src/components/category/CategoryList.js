@@ -4,7 +4,10 @@ import "./Category.css"
 import { Link } from "react-router-dom"
 
 export const CategoryList = () => {
-    const { categories, getCategories, deleteCategory } = useContext(CategoryContext)
+    const { categories, getCategories, deleteCategoryById, getCategoryById } = useContext(CategoryContext)
+     const loggedInUser = localStorage.getItem("rare_user_id")
+     const isStaff = JSON.parse(localStorage.getItem("isStaff"))
+
     const deleteWarning = useRef()
     const [deleteCat, setDeleteCat] = useState({
         "label": "",
@@ -14,10 +17,13 @@ export const CategoryList = () => {
     useEffect(() => {
         getCategories()
     }, [])
-    const sortedCats = categories.sort((a, b) => a.label > b.label ? 1 : -1)
+
+    // const sortedCats = categories.sort((a, b) => a.label > b.label ? 1 : -1)
 
     // filter out "deleted" categories
-    const filteredCats = sortedCats.filter(cat => cat.deleted == 0)
+    // const filteredCats = sortedCats.filter(cat => cat.deleted == 0)
+    
+    const deleteHanlder = ( indx ) => deleteCategoryById(indx)
 
     const handleDeleteWarning = event => {
         deleteWarning.current.showModal()
@@ -33,31 +39,63 @@ export const CategoryList = () => {
     }
 
     const handleClickDelete = () => {
-        deleteCategory(deleteCat.id)
+        deleteCategoryById(deleteCat.id)
         handleCloseModal()
     }
 
-
+    if(!Array.isArray(categories)) return (<div>Please Log In to View</div>)
 
     return (
+        loggedInUser && Array.isArray(categories)
+        ?
         <>
-            <Link to={`/categories/create`}>
+            <h2>Categories</h2>
+
+            <ul className="category_list">
+            {
+                categories.map((cat) => {
+                    return <li key={ cat.id } className="category_list--item">
+                        <div className="cat_label">{ cat.label }</div>
+                        { isStaff && <div>
+                            <Link className="link--edit" to={`/categories/edit/${cat.id}`}>
+                                <button className="btn--edit" type="button">
+                                    Edit Category
+                                </button>
+                            </Link>
+                            <button className="btn--delete" onClick={(e) => {
+                                e.preventDefault()
+                                deleteHanlder(cat.id)
+                            }}>Delete</button>
+                        </div> }
+                    </li>
+                })
+            }
+            </ul>
+            <Link to="/categories/create">
+                <button className="createTag" type="button">
                 Create Category
+                </button>
             </Link>
-            <div>
+
+            {/* <div>
                 <dialog className="dialog dialog--auth" ref={deleteWarning}>
                     <div>Are you sure you want to delete the category "{deleteCat.label}"?</div>
                     <button className="button--close" onClick={handleCloseModal}>Cancel</button>
                     <button className="button--close" onClick={handleClickDelete}>Confirm</button>
                 </dialog>
-                {filteredCats.map(c =>
+                {/* {filteredCats.map(c =>
                     <div className="category_card" key={c.id}>
                         <p><b>label: </b>{c.label}</p>
-                        {console.log(c.id)}
                         <button id={c.id} onClick={handleDeleteWarning}>Delete</button>
                     </div>
                 )}
-            </div>
+            </div> */}
+
+            <div>(=ↀωↀ=)✧</div>
+        </>
+        :
+        <>
+            <div>Please Log In to View</div>
             <div>(=ↀωↀ=)✧</div>
         </>
     )
